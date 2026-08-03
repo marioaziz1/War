@@ -130,6 +130,43 @@
   .decl-list li:last-child{border-bottom:none;}
   .decl-list .mark{color:var(--gold); font-family:'Cormorant Garamond'; font-size:16px;}
 
+  /* Today I Fight - direct writing */
+  .intent-panel{max-width:720px; margin:0 auto 8px;}
+
+  /* Scripture of the Day */
+  .scripture-box{
+    margin-top:20px; padding-top:18px; border-top:1px dashed var(--line-soft);
+  }
+  .scripture-box .scripture-label{
+    font-size:11px; letter-spacing:0.1em; color:var(--gold); text-transform:uppercase; margin-bottom:10px; font-family:'Cairo'; font-weight:700;
+  }
+  .scripture-text{
+    font-family:'Amiri', serif; font-size:18px; line-height:2; color:var(--ivory); border-right:2px solid var(--gold);
+    padding-right:16px; margin-bottom:8px;
+  }
+  .scripture-ref{ font-family:'Cormorant Garamond', serif; font-size:14px; color:var(--gold-light); font-style:italic; margin-bottom:14px;}
+
+  /* Discipline sliders */
+  .discipline-rows{display:flex; flex-direction:column; gap:18px;}
+  .discipline-row{display:flex; align-items:center; gap:14px;}
+  .discipline-row .d-label{width:80px; flex-shrink:0; font-size:13px; color:var(--ivory-dim);}
+  .discipline-row .d-slider-wrap{flex:1; position:relative;}
+  .discipline-row input[type=range]{
+    -webkit-appearance:none; width:100%; height:26px; background:transparent; cursor:pointer; margin:0;
+  }
+  .discipline-row input[type=range]::-webkit-slider-runnable-track{
+    height:6px; border-radius:4px; background:rgba(255,255,255,0.08);
+  }
+  .discipline-row input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:24px; height:24px; margin-top:-9px; border-radius:50%;
+    background:var(--gold-light); border:2px solid var(--black); box-shadow:0 0 0 1px var(--gold);
+  }
+  .discipline-row input[type=range]::-moz-range-track{ height:6px; border-radius:4px; background:rgba(255,255,255,0.08);}
+  .discipline-row input[type=range]::-moz-range-thumb{
+    width:24px; height:24px; border-radius:50%; background:var(--gold-light); border:2px solid var(--black); box-shadow:0 0 0 1px var(--gold);
+  }
+  .discipline-row .d-val{width:40px; flex-shrink:0; text-align:left; font-family:'Cormorant Garamond'; font-size:17px; font-weight:700; color:var(--gold-light);}
+
   /* Pillars */
   .pillars-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px;}
   .pillar-card{border:1px solid var(--line-soft); border-radius:8px; padding:14px; background:rgba(0,0,0,0.18);}
@@ -252,6 +289,40 @@
     body{background:white; color:black;}
     .panel{border-color:#999; background:white;}
   }
+
+  /* Pattern Intelligence */
+  .pi-entry{border:1px solid var(--gold-dim); border-radius:10px; padding:18px; margin-bottom:14px; background:rgba(201,162,39,0.04);}
+  .pi-entry .pi-num{font-family:'Cormorant Garamond'; color:var(--gold-light); font-size:15px; font-weight:700; margin-bottom:10px;}
+  .pi-row{display:grid; grid-template-columns:150px 1fr; gap:10px; padding:7px 0; border-bottom:1px dashed var(--line-soft); font-size:13.5px;}
+  .pi-row:last-child{border-bottom:none;}
+  .pi-row .pi-k{color:var(--gold); font-weight:700; font-size:12.5px;}
+  .pi-row .pi-v{color:var(--ivory); line-height:1.7;}
+  .pi-tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;}
+  .pi-tag{border:1px solid var(--line); color:var(--ivory-dim); font-size:11px; padding:4px 10px; border-radius:14px;}
+  .pi-tag.trigger{border-color:var(--red); color:#d6928d;}
+  .pi-tag.behavior{border-color:var(--blue); color:#8fb8d0;}
+  .nightly-qa{display:flex; flex-direction:column; gap:12px;}
+  .nightly-qa .q{font-size:12.5px; color:var(--gold); font-weight:700; margin-bottom:4px;}
+  .nightly-qa .a{font-size:13.5px; color:var(--ivory); line-height:1.7;}
+  .report-box{border:1px solid var(--line); border-radius:10px; padding:20px; margin-bottom:16px; background:linear-gradient(180deg, var(--black-2), var(--black-3));}
+  .report-box h4{margin:0 0 10px; font-size:14px; color:var(--gold-light); font-family:'Amiri', serif;}
+  .report-box h4:not(:first-child){margin-top:20px;}
+  .rank-list{list-style:none; padding:0; margin:0;}
+  .rank-list li{display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px dashed var(--line-soft); font-size:13px; color:var(--ivory);}
+  .rank-list li:last-child{border-bottom:none;}
+  .rank-list .cnt{color:var(--gold-light); font-family:'Cormorant Garamond'; font-weight:700;}
+  .eq-item{font-family:'Cormorant Garamond', serif; font-size:15px; color:var(--gold-light); padding:8px 0; border-bottom:1px dashed var(--line-soft);}
+  .eq-item:last-child{border-bottom:none;}
+  .report-meta{font-size:11.5px; color:var(--ivory-dim); margin-bottom:14px; font-style:italic; font-family:'Cormorant Garamond';}
+  .dash-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; margin-bottom:6px;}
+  .dash-card{border:1px solid var(--line-soft); border-radius:8px; padding:12px; background:rgba(0,0,0,0.18); text-align:center;}
+  .dash-card .dn{font-family:'Cormorant Garamond'; font-size:26px; color:var(--gold-light); font-weight:700;}
+  .dash-card .dl{font-size:11px; color:var(--ivory-dim); margin-top:4px;}
+  .dash-card .dt{font-size:11px; margin-top:6px; padding:2px 8px; border-radius:10px; display:inline-block;}
+  .dash-card .dt.up{color:#8fd08f; border:1px solid #8fd08f;}
+  .dash-card .dt.down{color:#d6928d; border:1px solid #d6928d;}
+  .dash-card .dt.flat{color:var(--ivory-dim); border:1px solid var(--line-soft);}
+  .becoming-text{font-family:'Amiri', serif; font-size:16px; line-height:2; color:var(--ivory); border-right:2px solid var(--gold); padding-right:16px;}
 </style>
 </head>
 <body>
@@ -279,15 +350,15 @@
 
   <nav class="pills">
     <a href="#identity">الهوية</a>
-    <a href="#pillars">الأعمدة السبعة</a>
     <a href="#battle">معركة اليوم</a>
-    <a href="#wins">الانتصارات الثلاث</a>
+    <a href="#wins">الأهداف</a>
     <a href="#execution">التنفيذ</a>
     <a href="#moral">السلطة الأخلاقية</a>
     <a href="#warrior">المحارب</a>
     <a href="#discipline">الانضباط</a>
     <a href="#timeline">الخط الزمني</a>
     <a href="#evening">التقرير المسائي</a>
+    <a href="#pattern">ذكاء الأنماط</a>
     <a href="#score">الدرجة</a>
     <a href="#journey">الرحلة</a>
   </nav>
@@ -295,6 +366,9 @@
   <div class="hairline"><span class="diamond">◆</span></div>
   <h2 class="section-title" style="text-align:center;">Today I Fight</h2>
   <p class="section-sub" style="text-align:center;">هذه ليست قائمة مهام. هذه وثيقة رجل يتغير.</p>
+  <div class="panel intent-panel">
+    <textarea id="todayIntent" placeholder="اكتب هنا بحرية... ما الذي يشغل ذهنك وأنت تدخل معركة اليوم؟" style="min-height:90px;"></textarea>
+  </div>
 
   <!-- IDENTITY -->
   <section id="identity">
@@ -305,16 +379,14 @@
       <ul class="decl-list" id="fixedDecls"></ul>
       <label class="field-label">إعلان شخصي جديد لهذا اليوم</label>
       <textarea id="customDecl" placeholder="اكتب إعلانًا جديدًا عن هويتك اليوم..."></textarea>
-    </div>
-  </section>
 
-  <!-- PILLARS -->
-  <section id="pillars">
-    <div class="hairline"><span class="diamond">◆ ◆ ◆</span></div>
-    <h2 class="section-title">الرجل الذي أبنيه</h2>
-    <div class="section-sub">The Man I Am Becoming</div>
-    <div class="panel">
-      <div class="pillars-grid" id="pillarsGrid"></div>
+      <div class="scripture-box">
+        <div class="scripture-label">Scripture of the Day</div>
+        <div class="scripture-text" id="scriptureText"></div>
+        <div class="scripture-ref" id="scriptureRef"></div>
+        <label class="field-label">كيف يؤكد هذا الشاهد الإعلان الذي كتبته اليوم؟</label>
+        <textarea id="scriptureReflection"></textarea>
+      </div>
     </div>
   </section>
 
@@ -324,15 +396,11 @@
     <h2 class="section-title">معركة اليوم</h2>
     <div class="section-sub">Today's Battle</div>
     <div class="panel">
-      <label class="field-label">ما المعركة الرئيسية اليوم؟</label>
+      <label class="field-label">ما المعركة اليوم؟</label>
       <textarea id="b_main"></textarea>
-      <label class="field-label">ما الخوف الذي سأواجهه؟</label>
-      <textarea id="b_fear"></textarea>
-      <label class="field-label">ما الحقيقة التي يجب أن أقولها؟</label>
-      <textarea id="b_truth"></textarea>
-      <label class="field-label">ما القرار الذي يجب ألا أهرب منه؟</label>
+      <label class="field-label">ما القرار الذي لن أهرب منه؟</label>
       <textarea id="b_decision"></textarea>
-      <label class="field-label">من الشخص الذي يجب أن أقوده أو أخدمه؟</label>
+      <label class="field-label">ما الشخص الذي يجب أن أخدمه أو أقوده؟</label>
       <textarea id="b_person"></textarea>
     </div>
   </section>
@@ -340,8 +408,8 @@
   <!-- WINS -->
   <section id="wins">
     <div class="hairline"><span class="diamond">◆ ◆ ◆</span></div>
-    <h2 class="section-title">أهم ثلاث انتصارات مطلوبة</h2>
-    <div class="section-sub">3 Non-Negotiable Wins</div>
+    <h2 class="section-title">Mission Objectives (If Needed)</h2>
+    <div class="section-sub">إذا لم يكن اليوم يحتاج أهدافًا محددة، اترك هذا القسم فارغًا.</div>
     <div class="wins-grid" id="winsGrid"></div>
   </section>
 
@@ -389,7 +457,7 @@
     <h2 class="section-title">الجسد والانضباط</h2>
     <div class="section-sub">Discipline</div>
     <div class="panel">
-      <div class="discipline-grid" id="disciplineGrid"></div>
+      <div class="discipline-rows" id="disciplineGrid"></div>
     </div>
   </section>
 
@@ -448,6 +516,46 @@
     </div>
   </section>
 
+  <!-- PATTERN INTELLIGENCE -->
+  <section id="pattern">
+    <div class="hairline"><span class="diamond">◆ ◆ ◆</span></div>
+    <h2 class="section-title">ذكاء الأنماط</h2>
+    <div class="section-sub">Pattern Intelligence</div>
+
+    <div class="panel">
+      <h3><span class="diamond">◆</span> أهم موقفين أو ثلاثة اليوم</h3>
+      <div class="section-sub" style="margin-bottom:10px;">اكتب بحرية ماذا حدث، مع من، ماذا شعرت وفعلت. سيستخرج النظام المحفز والشعور والفكرة والسلوك والنتيجة تلقائيًا من كلامك.</div>
+      <textarea id="patternRawInput" style="min-height:120px;" placeholder="مثال: في اجتماع الظهر شعرت بالتعب، وواجهني قائدي برأي مختلف، فتراجعت عن موقفي رغم اقتناعي به..."></textarea>
+      <button class="btn btn-primary" id="analyzeDayBtn" style="margin-top:14px;">🔍 حلّل يومي الآن</button>
+      <div id="analyzeStatus" style="font-size:12px;color:var(--ivory-dim);margin-top:8px;"></div>
+    </div>
+
+    <div id="patternEntries"></div>
+
+    <div class="panel" id="nightlyPanel" style="display:none;">
+      <h3><span class="diamond">◆</span> التحليل الليلي</h3>
+      <div id="nightlyContent" class="nightly-qa"></div>
+    </div>
+
+    <div class="hairline"><span class="diamond">◆ ◆</span></div>
+    <h2 class="section-title" style="font-size:20px;">Weekly Pattern Report</h2>
+    <div class="section-sub">آخر 7 أيام مسجَّلة — يُنشأ عند الطلب</div>
+    <div class="panel">
+      <button class="btn btn-ghost" id="genWeeklyBtn">📊 إنشاء تقرير الأسبوع</button>
+      <div id="weeklyStatus" style="font-size:12px;color:var(--ivory-dim);margin-top:8px;"></div>
+    </div>
+    <div id="weeklyReportBox"></div>
+
+    <div class="hairline"><span class="diamond">◆ ◆</span></div>
+    <h2 class="section-title" style="font-size:20px;">Pattern Dashboard</h2>
+    <div class="section-sub">آخر 30 يومًا مسجَّلة — يُنشأ عند الطلب</div>
+    <div class="panel">
+      <button class="btn btn-ghost" id="genMonthlyBtn">📅 إنشاء لوحة الشهر</button>
+      <div id="monthlyStatus" style="font-size:12px;color:var(--ivory-dim);margin-top:8px;"></div>
+    </div>
+    <div id="monthlyReportBox"></div>
+  </section>
+
   <!-- SCORE -->
   <section id="score">
     <div class="hairline"><span class="diamond">◆ ◆ ◆</span></div>
@@ -461,12 +569,6 @@
         </div>
         <svg id="radarSvg" width="260" height="260" viewBox="0 0 260 260"></svg>
       </div>
-      <label class="field-label" style="margin-top:20px;">اقتباس اليوم</label>
-      <input type="text" id="quoteInput" placeholder="جملة تلخص روح اليوم...">
-      <label class="field-label">المهمة الرئيسية للغد</label>
-      <input type="text" id="tomorrowInput" placeholder="ما القرار الذي لن أهرب منه غدًا؟">
-      <div class="verdict-box" id="verdictBox">اكتب فقرة قصيرة، كأنها تقرير قائد إلى محارب...</div>
-      <textarea id="verdictInput" placeholder="Today's Verdict — اكتب تقريرك هنا (سيظهر أعلاه)" style="margin-top:10px;"></textarea>
     </div>
   </section>
 
@@ -541,6 +643,42 @@ const FALL_TOGGLES = [
 ];
 const LEGACY_TOGGLES = [{key:"committedToMainProject",label:"التزمت بالمشروع الرئيسي"}];
 
+/* Pattern Intelligence Engine */
+const TRIGGER_TAGS = [
+  "شخص ذو سلطة","قائد أو شخصية مؤثرة","الخوف من الرفض","الرغبة في الإعجاب",
+  "الحاجة إلى إثبات الذات","التعب","الجوع","الوحدة","المقارنة بالآخرين",
+  "الشعور بعدم الكفاءة","الضغط","الاستعجال","الانتقاد","النجاح","الفشل",
+  "الفراغ","العلاقات القريبة"
+];
+const BEHAVIOR_TAGS = [
+  "قلت الحق","صمت عن الحق","واجهت","هربت","غيرت رأيي تحت الضغط","لبست ماسكًا",
+  "بحثت عن الإبهار","التزمت رغم غياب الحماس","كسرت الالتزام","خدمت شخصًا",
+  "قادتني مشاعري","قادتني هويتي"
+];
+const POSITIVE_BEHAVIORS = ["قلت الحق","واجهت","التزمت رغم غياب الحماس","خدمت شخصًا","قادتني هويتي"];
+const NEGATIVE_BEHAVIORS = ["صمت عن الحق","هربت","غيرت رأيي تحت الضغط","لبست ماسكًا","بحثت عن الإبهار","كسرت الالتزام","قادتني مشاعري"];
+
+/* Scripture of the Day bank — public-domain (Van Dyke) Arabic text, tagged by theme */
+const SCRIPTURE_BANK = [
+  {ref:"يشوع 1:9", text:"أما أمرتك؟ تشدد وتشجع. لا ترهب ولا ترتعب لأن الرب إلهك معك حيثما تذهب.", themes:["courage","leadership"]},
+  {ref:"إشعياء 41:10", text:"لا تخف لأني معك. لا تتلفت لأني إلهك. قد أيدتك، أعنتك، عضدتك بيمين برّي.", themes:["courage","sonship"]},
+  {ref:"1 كورنثوس 16:13", text:"اسهروا. اثبتوا في الإيمان. كونوا رجالاً. تقووا.", themes:["manhood","courage"]},
+  {ref:"أمثال 3:5-6", text:"توكل على الرب بكل قلبك، وعلى فهمك لا تعتمد. في كل طرقك اعرفه، وهو يقوّم سبلك.", themes:["wisdom","surrender"]},
+  {ref:"ميخا 6:8", text:"قد أخبرك أيها الإنسان ما هو صالح، وماذا يطلبه منك الرب، إلا أن تصنع الحق وتحب الرحمة وتسلك متواضعًا مع إلهك.", themes:["wisdom","surrender","legacy"]},
+  {ref:"رومية 8:15-16", text:"لم تأخذوا روح العبودية أيضًا للخوف، بل أخذتم روح التبني الذي به نصرخ: يا أبا الآب. الروح نفسه يشهد لأرواحنا أننا أولاد الله.", themes:["sonship","identity"]},
+  {ref:"غلاطية 4:6", text:"وبما أنكم أبناء، أرسل الله روح ابنه إلى قلوبكم صارخًا: يا أبا الآب.", themes:["sonship","identity"]},
+  {ref:"2 تيموثاوس 1:7", text:"لأن الله لم يعطنا روح الفشل، بل روح القوة والمحبة والنصح.", themes:["courage","identity"]},
+  {ref:"تثنية 31:6", text:"تشددوا وتشجعوا. لا تخافوا ولا ترهبوا منهم، لأن الرب إلهك هو السائر معك؛ لا يهملك ولا يتركك.", themes:["courage","steadfastness"]},
+  {ref:"مزمور 37:5", text:"سلّم للرب طريقك، واتكل عليه، وهو يجري.", themes:["surrender","steadfastness"]},
+  {ref:"كولوسي 3:23", text:"وكل ما فعلتم، فاعملوا من القلب كما للرب، ليس للناس.", themes:["legacy","leadership"]},
+  {ref:"عبرانيين 12:1-2", text:"لنطرح كل ثقل والخطية المحيطة بنا، ولنحاضر بالصبر في الجهاد الموضوع أمامنا، ناظرين إلى رئيس الإيمان ومكمّله.", themes:["steadfastness","legacy"]},
+  {ref:"أمثال 27:17", text:"الحديد بالحديد يُحدّ، والإنسان يُحدّ وجه صاحبه.", themes:["leadership","identity"]},
+  {ref:"فيلبي 4:13", text:"أستطيع كل شيء في المسيح الذي يقويني.", themes:["courage","steadfastness"]},
+  {ref:"1 تيموثاوس 4:12", text:"لا يستهن أحد بحداثتك، بل كن قدوة للمؤمنين في الكلام، في التصرف، في المحبة، في الروح، في الإيمان، في الطهارة.", themes:["leadership","legacy","identity"]},
+  {ref:"مزمور 139:14", text:"أحمدك من أجل أني قد امتزت عجبًا. عجيبة هي أعمالك، ونفسي تعرف ذلك يقينًا.", themes:["identity","sonship"]},
+  {ref:"إرميا 29:11", text:"لأني أنا عارف الأفكار التي أنا مفتكر بها عنكم، يقول الرب، أفكار سلام لا شر، لأعطيكم آخرة ورجاء.", themes:["legacy","surrender"]}
+];
+
 let state = null;
 let currentDate = null;
 let startDate = null;
@@ -548,13 +686,19 @@ let saveTimer = null;
 
 function todayStr(d){ const dt = d||new Date(); return dt.toISOString().slice(0,10); }
 
+function pickRandomScripture(){
+  const s = SCRIPTURE_BANK[Math.floor(Math.random()*SCRIPTURE_BANK.length)];
+  return {ref:s.ref, text:s.text, reflection:""};
+}
+
 function defaultState(dateStr){
   return {
     date: dateStr,
+    todayIntent: "",
     identity: { custom: "" },
-    pillars: PILLARS.map(name=>({name, today:50, best:50, note:""})),
-    battle: {main:"",fear:"",truth:"",decision:"",person:""},
-    wins: [0,1,2].map(()=>({task:"",why:"",pillar:PILLARS[0]})),
+    scripture: pickRandomScripture(),
+    battle: {main:"",decision:"",person:""},
+    wins: [0,1,2].map(()=>({task:"",why:""})),
     execution: Object.fromEntries(EXEC_CATS.map(c=>[c, EXEC_DEFAULTS[c].map(t=>({text:t,done:false}))])),
     moral: {where:"",whom:"",how:"",spokeTruth:null},
     warrior: WARRIOR_ITEMS.map(()=>false),
@@ -566,7 +710,7 @@ function defaultState(dateStr){
       wisdom:{text:""},
       legacy:{text:"",livedForMission:null,committedToMainProject:false}
     },
-    quote:"", tomorrowTask:"", verdict:""
+    pattern: { rawInput:"", entries:[], nightly:null }
   };
 }
 
@@ -612,7 +756,20 @@ async function storageListKeys(prefix){
 async function loadDay(dateStr){
   try{
     const val = await storageGet('day:'+dateStr);
-    if(val) return JSON.parse(val);
+    if(val){
+      const d = JSON.parse(val);
+      // migrate records saved before this version added these fields
+      if(!d.scripture) d.scripture = pickRandomScripture();
+      if(typeof d.todayIntent !== 'string') d.todayIntent = "";
+      if(!d.battle) d.battle = {main:"",decision:"",person:""};
+      if(typeof d.battle.decision !== 'string') d.battle.decision = d.battle.decision || "";
+      if(typeof d.battle.person !== 'string') d.battle.person = d.battle.person || "";
+      if(!Array.isArray(d.wins)) d.wins = [0,1,2].map(()=>({task:"",why:""}));
+      if(!d.pattern) d.pattern = { rawInput:"", entries:[], nightly:null };
+      if(typeof d.pattern.rawInput !== 'string') d.pattern.rawInput = "";
+      if(!Array.isArray(d.pattern.entries)) d.pattern.entries = [];
+      return d;
+    }
   }catch(e){ console.warn('loadDay parse error', e); }
   return defaultState(dateStr);
 }
@@ -650,8 +807,8 @@ function renderAll(){
   document.getElementById('dateInput').value = state.date;
   document.getElementById('dateDisplay').textContent = new Date(state.date+"T12:00:00").toLocaleDateString('ar-EG',{weekday:'long', day:'numeric', month:'long', year:'numeric'});
   updateDayCounter();
+  renderIntent();
   renderIdentity();
-  renderPillars();
   renderBattle();
   renderWins();
   renderExecution();
@@ -660,6 +817,7 @@ function renderAll(){
   renderDiscipline();
   renderTimeline();
   renderEvening();
+  renderPattern();
   renderScore();
 }
 
@@ -674,45 +832,29 @@ function updateDayCounter(){
   document.getElementById('dayCounterDisplay').textContent = `Day ${dayNum} / 120`;
 }
 
+function renderIntent(){
+  const el = document.getElementById('todayIntent');
+  el.value = state.todayIntent;
+  el.oninput = e=>{ state.todayIntent = e.target.value; scheduleSave(); };
+}
+
 function renderIdentity(){
   const ul = document.getElementById('fixedDecls');
   ul.innerHTML = FIXED_DECLS.map(t=>`<li><span class="mark">◆</span> ${t}</li>`).join('');
   const customDeclEl = document.getElementById('customDecl');
   customDeclEl.value = state.identity.custom;
   customDeclEl.oninput = e=>{ state.identity.custom = e.target.value; scheduleSave(); };
-}
 
-function renderPillars(){
-  const grid = document.getElementById('pillarsGrid');
-  grid.innerHTML = state.pillars.map((p,i)=>`
-    <div class="pillar-card">
-      <div class="pname">${p.name}</div>
-      <div class="pillar-nums"><span>اليوم: <b style="color:var(--gold-light)">${p.today}%</b></span><span>الأفضل: ${p.best}%</span></div>
-      <div class="pillar-bar"><div class="pillar-bar-fill" style="width:${p.today}%"></div></div>
-      <input type="range" min="0" max="100" value="${p.today}" data-idx="${i}" class="pillar-range">
-      <textarea class="pillar-note" data-idx="${i}" placeholder="ملاحظة قصيرة...">${p.note}</textarea>
-    </div>
-  `).join('');
-  grid.querySelectorAll('.pillar-range').forEach(r=>{
-    r.addEventListener('input', e=>{
-      const idx = +e.target.dataset.idx;
-      state.pillars[idx].today = +e.target.value;
-      if(state.pillars[idx].today > state.pillars[idx].best) state.pillars[idx].best = state.pillars[idx].today;
-      renderPillars(); renderScore(); scheduleSave();
-    });
-  });
-  grid.querySelectorAll('.pillar-note').forEach(t=>{
-    t.addEventListener('input', e=>{
-      state.pillars[+e.target.dataset.idx].note = e.target.value; scheduleSave();
-    });
-  });
+  document.getElementById('scriptureText').textContent = '"' + state.scripture.text + '"';
+  document.getElementById('scriptureRef').textContent = '— ' + state.scripture.ref;
+  const reflEl = document.getElementById('scriptureReflection');
+  reflEl.value = state.scripture.reflection;
+  reflEl.oninput = e=>{ state.scripture.reflection = e.target.value; scheduleSave(); };
 }
 
 function renderBattle(){
-  ['main','fear','truth','decision','person'].forEach(k=>{
+  ['main','decision','person'].forEach(k=>{
     document.getElementById('b_'+k).value = state.battle[k];
-  });
-  ['main','fear','truth','decision','person'].forEach(k=>{
     document.getElementById('b_'+k).oninput = e=>{ state.battle[k]=e.target.value; scheduleSave(); };
   });
 }
@@ -726,15 +868,10 @@ function renderWins(){
       <input type="text" class="win-task" data-idx="${i}" value="${escapeAttr(w.task)}">
       <label class="field-label">لماذا هي مهمة؟</label>
       <textarea class="win-why" data-idx="${i}">${w.why}</textarea>
-      <label class="field-label">مرتبطة بأي عمود؟</label>
-      <select class="win-pillar" data-idx="${i}">
-        ${PILLARS.map(p=>`<option ${p===w.pillar?'selected':''}>${p}</option>`).join('')}
-      </select>
     </div>
   `).join('');
   grid.querySelectorAll('.win-task').forEach(el=>el.oninput=e=>{state.wins[+e.target.dataset.idx].task=e.target.value; scheduleSave();});
   grid.querySelectorAll('.win-why').forEach(el=>el.oninput=e=>{state.wins[+e.target.dataset.idx].why=e.target.value; scheduleSave();});
-  grid.querySelectorAll('.win-pillar').forEach(el=>el.onchange=e=>{state.wins[+e.target.dataset.idx].pillar=e.target.value; scheduleSave();});
 }
 
 function renderExecution(){
@@ -799,34 +936,24 @@ function renderWarrior(){
   });
 }
 
-function ringSvg(pct, key){
-  const r=32, c=2*Math.PI*r;
-  const off = c - (pct/100)*c;
-  return `<div class="ring-wrap">
-    <svg width="78" height="78" viewBox="0 0 78 78">
-      <circle cx="39" cy="39" r="${r}" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="6"/>
-      <circle cx="39" cy="39" r="${r}" fill="none" stroke="url(#g_${key})" stroke-width="6" stroke-dasharray="${c}" stroke-dashoffset="${off}" stroke-linecap="round"/>
-      <defs><linearGradient id="g_${key}" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#6e5a1c"/><stop offset="100%" stop-color="#e6c65c"/>
-      </linearGradient></defs>
-    </svg>
-    <div class="ring-val">${pct}</div>
-    <input type="range" min="0" max="100" value="${pct}" data-key="${key}" class="discipline-range">
-  </div>`;
-}
 function renderDiscipline(){
   const grid = document.getElementById('disciplineGrid');
   grid.innerHTML = DISCIPLINE_ITEMS.map(d=>`
-    <div>
-      ${ringSvg(state.discipline[d.key], d.key)}
-      <div class="ring-label">${d.label}</div>
+    <div class="discipline-row">
+      <div class="d-label">${d.label}</div>
+      <div class="d-slider-wrap">
+        <input type="range" min="0" max="100" value="${state.discipline[d.key]}" data-key="${d.key}" class="discipline-range">
+      </div>
+      <div class="d-val">${state.discipline[d.key]}</div>
     </div>
   `).join('');
   grid.querySelectorAll('.discipline-range').forEach(r=>{
-    r.oninput = e=>{
-      state.discipline[e.target.dataset.key] = +e.target.value;
-      renderDiscipline(); scheduleSave();
-    };
+    r.addEventListener('input', e=>{
+      const key = e.target.dataset.key;
+      state.discipline[key] = +e.target.value;
+      e.target.closest('.discipline-row').querySelector('.d-val').textContent = state.discipline[key];
+      renderScore(); scheduleSave();
+    });
   });
 }
 
@@ -901,26 +1028,408 @@ function renderEvening(){
   document.getElementById('legacy_feeling').onclick = ()=>{state.evening.legacy.livedForMission = state.evening.legacy.livedForMission===false?null:false; renderEvening(); scheduleSave();};
 }
 
-function computeScore(){
-  const avg = state.pillars.reduce((s,p)=>s+p.today,0)/state.pillars.length;
-  return Math.round(avg);
+/* ============ PATTERN INTELLIGENCE ENGINE ============ */
+
+async function callClaudeJSON(system, userMsg){
+  const response = await fetch("https://api.anthropic.com/v1/messages", {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({
+      model:"claude-sonnet-4-6",
+      max_tokens:2000,
+      system: system,
+      messages:[{ role:"user", content:userMsg }]
+    })
+  });
+  const data = await response.json();
+  const text = (data.content||[]).map(b=>b.text||"").join("\n");
+  const clean = text.replace(/```json/g,"").replace(/```/g,"").trim();
+  return JSON.parse(clean);
+}
+
+function buildDayContextText(d){
+  d = d || state;
+  const parts = [];
+  if(d.todayIntent) parts.push("نية اليوم: " + d.todayIntent);
+  if(d.battle && d.battle.main) parts.push("معركة اليوم: " + d.battle.main);
+  if(d.battle && d.battle.decision) parts.push("القرار: " + d.battle.decision);
+  if(d.moral && d.moral.where) parts.push("موقف السلطة الأخلاقية: " + d.moral.where + " / " + (d.moral.how||""));
+  if(d.evening && d.evening.wins && d.evening.wins.text) parts.push("انتصارات المساء: " + d.evening.wins.text);
+  if(d.evening && d.evening.falls && d.evening.falls.text) parts.push("سقوط المساء: " + d.evening.falls.text);
+  if(d.evening && d.evening.wisdom && d.evening.wisdom.text) parts.push("حكمة المساء: " + d.evening.wisdom.text);
+  if(d.timeline){
+    const events = d.timeline.filter(t=>t.event && t.event.trim());
+    events.forEach(t=>parts.push(`الساعة ${t.hour}: ${t.event}${t.feeling? ' — شعور: '+t.feeling:''}`));
+  }
+  return parts.join("\n");
+}
+
+function renderPattern(){
+  const raw = document.getElementById('patternRawInput');
+  raw.value = state.pattern.rawInput || "";
+  raw.oninput = e=>{ state.pattern.rawInput = e.target.value; scheduleSave(); };
+  renderPatternEntries();
+}
+
+function renderPatternEntries(){
+  const box = document.getElementById('patternEntries');
+  const entries = state.pattern.entries || [];
+  box.innerHTML = entries.map((s,i)=>`
+    <div class="pi-entry">
+      <div class="pi-num">موقف ${i+1}</div>
+      <div class="pi-row"><div class="pi-k">الموقف</div><div class="pi-v">${escapeHtml(s.situation)}</div></div>
+      <div class="pi-row"><div class="pi-k">المحفز (Trigger)</div><div class="pi-v">${escapeHtml(s.trigger)}</div></div>
+      <div class="pi-row"><div class="pi-k">الشعور</div><div class="pi-v">${escapeHtml(s.feeling)}</div></div>
+      <div class="pi-row"><div class="pi-k">الفكرة التي صدقتها</div><div class="pi-v">${escapeHtml(s.belief)}</div></div>
+      <div class="pi-row"><div class="pi-k">السلوك</div><div class="pi-v">${escapeHtml(s.behavior)}</div></div>
+      <div class="pi-row"><div class="pi-k">النتيجة</div><div class="pi-v">${escapeHtml(s.result)}</div></div>
+      <div class="pi-row"><div class="pi-k">البديل الصحيح</div><div class="pi-v">${escapeHtml(s.alternative)}</div></div>
+      <div class="pi-tags">
+        ${(s.triggerTags||[]).map(t=>`<span class="pi-tag trigger">${escapeHtml(t)}</span>`).join('')}
+        ${(s.behaviorTags||[]).map(t=>`<span class="pi-tag behavior">${escapeHtml(t)}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  const nightlyPanel = document.getElementById('nightlyPanel');
+  const nightlyContent = document.getElementById('nightlyContent');
+  if(state.pattern.nightly){
+    nightlyPanel.style.display = '';
+    const n = state.pattern.nightly;
+    const qa = [
+      ["ما أكثر محفز أثّر عليّ اليوم؟", n.topTrigger],
+      ["ما أكثر شعور قاد قراراتي؟", n.topFeeling],
+      ["هل تصرفت من الهوية أم من الحاجة إلى الإثبات؟", n.identityVsProof],
+      ["ما النمط الذي بدأ يتكرر؟", n.repeatingPattern],
+      ["ما الجذر المحتمل خلف هذا السلوك؟", n.possibleRoot]
+    ];
+    nightlyContent.innerHTML = qa.map(([q,a])=>`<div><div class="q">${q}</div><div class="a">${escapeHtml(a||'—')}</div></div>`).join('');
+  } else {
+    nightlyPanel.style.display = 'none';
+  }
+}
+
+function escapeHtml(s){
+  return (s||'—').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+async function analyzeToday(){
+  const btn = document.getElementById('analyzeDayBtn');
+  const status = document.getElementById('analyzeStatus');
+  const raw = document.getElementById('patternRawInput').value.trim();
+  const contextText = buildDayContextText();
+  if(!raw && !contextText){
+    status.textContent = 'اكتب شيئًا عن موقف اليوم أولًا.';
+    return;
+  }
+  btn.disabled = true;
+  status.textContent = 'جاري التحليل...';
+  try{
+    const system = "أنت محلل سلوكي وروحي دقيق يساعد شخصًا يكتب دفتر يومياته (WAR JOURNAL) على اكتشاف الأنماط المتكررة في حياته. تستنتج العناصر فقط مما هو مكتوب فعليًا، ولا تخترع تفاصيل غير موجودة في النص. أجب بصيغة JSON فقط، بدون أي نص إضافي قبله أو بعده، وبدون علامات ```.";
+    const userMsg = `النص الحر الذي كتبه المستخدم عن أهم موقفين أو ثلاثة مواقف اليوم:\n${raw || '(لم يُكتب نص حر، استخدم السياق أدناه فقط)'}\n\nسياق إضافي من دفتر اليوم:\n${contextText || '(لا يوجد)'}\n\nقائمة المحفزات المسموح الاختيار منها فقط (استخدم نفس الصياغة الحرفية):\n${TRIGGER_TAGS.join('، ')}\n\nقائمة السلوكيات المسموح الاختيار منها فقط (استخدم نفس الصياغة الحرفية):\n${BEHAVIOR_TAGS.join('، ')}\n\nحلل 2 إلى 3 مواقف فقط (الأهم). لكل موقف استنتج: الموقف (ماذا حدث)، المحفز، الشعور، الفكرة التي صدقها الشخص، السلوك الفعلي، النتيجة، والبديل الصحيح لو عاد لنفس الموقف. اختر triggerTags و behaviorTags من القوائم أعلاه فقط (يمكن أن تكون فارغة إذا لم تنطبق). ثم أجب عن أسئلة التحليل الليلي الخمسة بإيجاز بناءً على بيانات اليوم فقط.\n\nأرجع JSON بهذا الشكل بالضبط:\n{"situations":[{"situation":"","trigger":"","feeling":"","belief":"","behavior":"","result":"","alternative":"","triggerTags":[],"behaviorTags":[]}],"nightly":{"topTrigger":"","topFeeling":"","identityVsProof":"","repeatingPattern":"","possibleRoot":""}}`;
+
+    const result = await callClaudeJSON(system, userMsg);
+    state.pattern.entries = (result.situations||[]).slice(0,3).map((s,i)=>({
+      id: 's'+i,
+      situation: s.situation||'', trigger: s.trigger||'', feeling: s.feeling||'',
+      belief: s.belief||'', behavior: s.behavior||'', result: s.result||'', alternative: s.alternative||'',
+      triggerTags: (s.triggerTags||[]).filter(t=>TRIGGER_TAGS.includes(t)),
+      behaviorTags: (s.behaviorTags||[]).filter(t=>BEHAVIOR_TAGS.includes(t))
+    }));
+    state.pattern.nightly = result.nightly || null;
+    renderPatternEntries();
+    status.textContent = 'تم التحليل ✓';
+    scheduleSave();
+  }catch(e){
+    console.error('Pattern analysis failed', e);
+    status.textContent = 'حدث خطأ أثناء التحليل. حاول مرة أخرى.';
+  }
+  btn.disabled = false;
+}
+
+async function collectRecentDays(nDays){
+  let keys = [];
+  try{ keys = await storageListKeys('day:'); }catch(e){}
+  const days = [];
+  for(const k of keys){
+    try{
+      const val = await storageGet(k);
+      if(val) days.push(JSON.parse(val));
+    }catch(e){}
+  }
+  days.sort((a,b)=>a.date.localeCompare(b.date));
+  const cutoff = new Date(state.date+"T00:00:00");
+  cutoff.setDate(cutoff.getDate() - (nDays-1));
+  const cutoffStr = todayStr(cutoff);
+  return days.filter(d=>d.date>=cutoffStr && d.date<=state.date);
+}
+
+function tallyTagsAcrossDays(days){
+  const triggerCounts = {}, behaviorCounts = {};
+  TRIGGER_TAGS.forEach(t=>triggerCounts[t]=0);
+  BEHAVIOR_TAGS.forEach(t=>behaviorCounts[t]=0);
+  const situationTexts = [];
+  days.forEach(d=>{
+    (d.pattern && d.pattern.entries || []).forEach(s=>{
+      (s.triggerTags||[]).forEach(t=>{ if(triggerCounts[t]!==undefined) triggerCounts[t]++; });
+      (s.behaviorTags||[]).forEach(t=>{ if(behaviorCounts[t]!==undefined) behaviorCounts[t]++; });
+      if(s.situation) situationTexts.push(`[${d.date}] ${s.situation} — محفز: ${s.trigger||'—'} — سلوك: ${s.behavior||'—'}`);
+    });
+  });
+  return {triggerCounts, behaviorCounts, situationTexts};
+}
+
+function rankObj(obj){
+  return Object.entries(obj).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
+}
+
+async function generateWeeklyReport(){
+  const btn = document.getElementById('genWeeklyBtn');
+  const status = document.getElementById('weeklyStatus');
+  btn.disabled = true;
+  status.textContent = 'جاري تجميع بيانات آخر 7 أيام...';
+  try{
+    const days = await collectRecentDays(7);
+    if(!days.length || !days.some(d=>d.pattern && d.pattern.entries && d.pattern.entries.length)){
+      status.textContent = 'لا توجد مواقف محلَّلة كافية خلال آخر 7 أيام. استخدم "حلّل يومي الآن" أولًا.';
+      btn.disabled = false;
+      return;
+    }
+    const {triggerCounts, behaviorCounts, situationTexts} = tallyTagsAcrossDays(days);
+    const triggerRank = rankObj(triggerCounts);
+    const positiveRank = rankObj(Object.fromEntries(POSITIVE_BEHAVIORS.map(k=>[k,behaviorCounts[k]||0])));
+    const negativeRank = rankObj(Object.fromEntries(NEGATIVE_BEHAVIORS.map(k=>[k,behaviorCounts[k]||0])));
+
+    status.textContent = 'جاري التحليل بالذكاء الاصطناعي...';
+    const scriptureList = SCRIPTURE_BANK.map(s=>`${s.ref}: ${s.text}`).join('\n');
+    const system = "أنت محلل سلوكي وروحي. تُنشئ تقريرًا أسبوعيًا مبنيًا فقط على البيانات المعطاة لك، دون نصائح عامة ودون مبالغة. اعرض استنتاجاتك كاحتمالات مدعومة بالبيانات وليس كحقائق مطلقة. أجب بصيغة JSON فقط بدون أي نص إضافي.";
+    const userMsg = `بيانات آخر 7 أيام من دفتر WAR JOURNAL:\n\nتكرار المحفزات:\n${triggerRank.map(([k,v])=>`${k}: ${v}`).join('\n')||'لا يوجد'}\n\nالسلوكيات الإيجابية المتكررة:\n${positiveRank.map(([k,v])=>`${k}: ${v}`).join('\n')||'لا يوجد'}\n\nالسلوكيات السلبية المتكررة:\n${negativeRank.map(([k,v])=>`${k}: ${v}`).join('\n')||'لا يوجد'}\n\nالمواقف التفصيلية:\n${situationTexts.join('\n')||'لا يوجد'}\n\nبنك الشواهد الكتابية المتاح (اختر مرجعًا واحدًا فقط من هذه القائمة بالضبط، وأرجع قيمة ref كما هي حرفيًا):\n${scriptureList}\n\nبناءً على هذه البيانات فقط، استنتج:\n1. strongestTriggerRight: أقوى محفز يجعل الشخص يفعل الصواب (جملة قصيرة تفسيرية)\n2. strongestTriggerWrong: أقوى محفز يجعله يفعل الخطأ\n3. mostInfluentialPerson: أكثر نوع شخص يؤثر عليه (مثل: قادة، أشخاص يحبهم، ناقدون...)\n4. mostVulnerableTime: أكثر وقت في اليوم يسقط فيه (صباح/ظهيرة/مساء/بعد الاجتماعات/عند التعب...)\n5. equations: مصفوفة من 2 إلى 4 معادلات سلوكية بصيغة نصية مثل "التعب + قائد + عدم استعداد = تغيير الرأي"\n6. possibleRoots: مصفوفة من 1 إلى 3 جذور محتملة (كاحتمالات، مثل "قد يشير هذا إلى الخوف من الرفض")\n7. riskForecast: توقع سقوط محتمل للأسبوع القادم، جملة أو جملتين\n8. weeklyTraining: تدريب واحد فقط صغير وعملي للأسبوع القادم\n9. theLie: أكثر كذبة داخلية حكمت السلوك هذا الأسبوع\n10. truthRef: مرجع الشاهد المختار حرفيًا من القائمة أعلاه (حقل ref فقط)\n11. truthApplication: جملة قصيرة تربط الشاهد بالكذبة\n\nأرجع JSON بهذا الشكل بالضبط:\n{"strongestTriggerRight":"","strongestTriggerWrong":"","mostInfluentialPerson":"","mostVulnerableTime":"","equations":[],"possibleRoots":[],"riskForecast":"","weeklyTraining":"","theLie":"","truthRef":"","truthApplication":""}`;
+
+    const ai = await callClaudeJSON(system, userMsg);
+    const scriptureMatch = SCRIPTURE_BANK.find(s=>s.ref===ai.truthRef) || null;
+
+    const report = {
+      generatedAt: state.date,
+      rangeStart: days[0].date, rangeEnd: days[days.length-1].date,
+      triggerRank, positiveRank, negativeRank,
+      ai, scripture: scriptureMatch
+    };
+    await storageSet('weeklyreport:'+state.date, JSON.stringify(report));
+    renderWeeklyReport(report);
+    status.textContent = 'تم إنشاء التقرير ✓';
+  }catch(e){
+    console.error('Weekly report failed', e);
+    status.textContent = 'حدث خطأ أثناء إنشاء التقرير. حاول مرة أخرى.';
+  }
+  btn.disabled = false;
+}
+
+function renderWeeklyReport(report){
+  const box = document.getElementById('weeklyReportBox');
+  if(!report){ box.innerHTML=''; return; }
+  const ai = report.ai || {};
+  box.innerHTML = `
+    <div class="report-box">
+      <div class="report-meta">من ${report.rangeStart} إلى ${report.rangeEnd} — أُنشئ في ${report.generatedAt}</div>
+
+      <h4>أكثر المحفزات تكرارًا</h4>
+      <ul class="rank-list">${report.triggerRank.map(([k,v])=>`<li><span>${escapeHtml(k)}</span><span class="cnt">${v}</span></li>`).join('')||'<li>لا يوجد</li>'}</ul>
+
+      <h4>أكثر السلوكيات الصحيحة</h4>
+      <ul class="rank-list">${report.positiveRank.map(([k,v])=>`<li><span>${escapeHtml(k)}</span><span class="cnt">${v}</span></li>`).join('')||'<li>لا يوجد</li>'}</ul>
+
+      <h4>أكثر السلوكيات السلبية</h4>
+      <ul class="rank-list">${report.negativeRank.map(([k,v])=>`<li><span>${escapeHtml(k)}</span><span class="cnt">${v}</span></li>`).join('')||'<li>لا يوجد</li>'}</ul>
+
+      <h4>أقوى محفز يجعلني أفعل الصواب</h4>
+      <div class="pi-v">${escapeHtml(ai.strongestTriggerRight)}</div>
+
+      <h4>أقوى محفز يجعلني أفعل الخطأ</h4>
+      <div class="pi-v">${escapeHtml(ai.strongestTriggerWrong)}</div>
+
+      <h4>أكثر شخص أو نوع شخص يؤثر عليّ</h4>
+      <div class="pi-v">${escapeHtml(ai.mostInfluentialPerson)}</div>
+
+      <h4>أكثر وقت أسقط فيه</h4>
+      <div class="pi-v">${escapeHtml(ai.mostVulnerableTime)}</div>
+
+      <h4>Behavioral Equations</h4>
+      ${(ai.equations||[]).map(e=>`<div class="eq-item">${escapeHtml(e)}</div>`).join('') || '<div class="pi-v">—</div>'}
+
+      <h4>الجذور المحتملة</h4>
+      ${(ai.possibleRoots||[]).map(r=>`<div class="pi-v" style="margin-bottom:6px;">◇ ${escapeHtml(r)}</div>`).join('') || '<div class="pi-v">—</div>'}
+
+      <h4>Risk Forecast</h4>
+      <div class="pi-v">${escapeHtml(ai.riskForecast)}</div>
+
+      <h4>تدريب الأسبوع القادم</h4>
+      <div class="pi-v">${escapeHtml(ai.weeklyTraining)}</div>
+
+      <h4>The Lie I Kept Believing</h4>
+      <div class="pi-v">${escapeHtml(ai.theLie)}</div>
+
+      <h4>The Truth I Need to Practice</h4>
+      <div class="scripture-box" style="border-top:none; padding-top:0; margin-top:0;">
+        ${report.scripture ? `<div class="scripture-text" style="font-size:15px;">"${escapeHtml(report.scripture.text)}"</div><div class="scripture-ref">— ${escapeHtml(report.scripture.ref)}</div>` : '<div class="pi-v">—</div>'}
+        <div class="pi-v" style="margin-top:6px;">${escapeHtml(ai.truthApplication)}</div>
+      </div>
+    </div>
+  `;
+}
+
+const MONTHLY_AXES = [
+  {key:"truth", label:"مرات قول الحق", positive:true, test:d=>(d.moral&&d.moral.spokeTruth===true)||hasBehavior(d,"قلت الحق")},
+  {key:"opinionChange", label:"مرات تغيير الرأي", positive:false, test:d=>(d.evening&&d.evening.falls&&d.evening.falls.changedUnderPressure)||hasBehavior(d,"غيرت رأيي تحت الضغط")},
+  {key:"mask", label:"مرات لبس الماسك", positive:false, test:d=>(d.evening&&d.evening.falls&&d.evening.falls.woreMask)||hasBehavior(d,"لبست ماسكًا")},
+  {key:"impress", label:"مرات البحث عن الإبهار", positive:false, test:d=>(d.evening&&d.evening.falls&&d.evening.falls.soughtImpressiveness)||hasBehavior(d,"بحثت عن الإبهار")},
+  {key:"faceFear", label:"مرات مواجهة الخوف", positive:true, test:d=>(d.warrior&&d.warrior[3])||hasBehavior(d,"واجهت")},
+  {key:"commit", label:"مرات الالتزام رغم غياب الحماس", positive:true, test:d=>(d.evening&&d.evening.legacy&&d.evening.legacy.committedToMainProject)||hasBehavior(d,"التزمت رغم غياب الحماس")},
+  {key:"escape", label:"مرات الهروب من المسؤولية", positive:false, test:d=>(d.evening&&d.evening.falls&&d.evening.falls.ranFromResponsibility)||hasBehavior(d,"هربت")},
+  {key:"lead", label:"مرات القيادة", positive:true, test:d=>!!(d.battle&&d.battle.person&&d.battle.person.trim())},
+  {key:"serve", label:"مرات الخدمة", positive:true, test:d=>hasBehavior(d,"خدمت شخصًا")},
+  {key:"surrender", label:"مرات الاستسلام (لله)", positive:true, test:d=>(d.evening&&d.evening.legacy&&d.evening.legacy.livedForMission===true)}
+];
+function hasBehavior(d, tag){
+  return !!(d.pattern && d.pattern.entries && d.pattern.entries.some(s=>(s.behaviorTags||[]).includes(tag)));
+}
+
+async function generateMonthlyReport(){
+  const btn = document.getElementById('genMonthlyBtn');
+  const status = document.getElementById('monthlyStatus');
+  btn.disabled = true;
+  status.textContent = 'جاري تجميع بيانات آخر 30 يومًا...';
+  try{
+    const days = await collectRecentDays(30);
+    if(!days.length){
+      status.textContent = 'لا توجد أيام مسجَّلة كافية بعد.';
+      btn.disabled = false;
+      return;
+    }
+    const half = Math.max(1, Math.floor(days.length/2));
+    const firstHalf = days.slice(0, half);
+    const secondHalf = days.slice(half);
+
+    const axesData = MONTHLY_AXES.map(axis=>{
+      const count = days.filter(axis.test).length;
+      const firstRate = firstHalf.filter(axis.test).length / firstHalf.length;
+      const secondRate = secondHalf.length ? secondHalf.filter(axis.test).length / secondHalf.length : firstRate;
+      let dir = 'flat';
+      if(secondRate > firstRate*1.15) dir='up'; else if(secondRate < firstRate*0.85) dir='down';
+      let trendLabel, trendClass;
+      if(dir==='flat'){ trendLabel='ثابت'; trendClass='flat'; }
+      else if((dir==='up' && axis.positive) || (dir==='down' && !axis.positive)){ trendLabel='يتحسن'; trendClass='up'; }
+      else { trendLabel='يتراجع'; trendClass='down'; }
+      return {...axis, count, trendLabel, trendClass};
+    });
+
+    status.textContent = 'جاري كتابة "الشخصية التي تظهر من البيانات"...';
+    const system = "أنت محلل سلوكي موضوعي. تكتب فقرة قصيرة توصف نمط شخصية بناءً على بيانات فعلية فقط، دون أي لغة تحفيزية أو مجاملة أو نصيحة. لغة وصفية محايدة تعتمد على الأرقام والاتجاهات المعطاة فقط. أجب بصيغة JSON فقط.";
+    const dataStr = axesData.map(a=>`${a.label}: ${a.count} مرة خلال ${days.length} يومًا، الاتجاه: ${a.trendLabel}`).join('\n');
+    const userMsg = `بيانات آخر ${days.length} يومًا من دفتر WAR JOURNAL:\n${dataStr}\n\nاكتب فقرة من 4 إلى 6 جمل بعنوان "Who I Am Becoming"، بلغة موضوعية غير تحفيزية، تصف الشخصية التي تتشكل من هذه البيانات فقط، مع الإشارة إلى المحاور المتحسنة والمتراجعة.\n\nأرجع JSON بهذا الشكل بالضبط:\n{"whoIAmBecoming":""}`;
+    let becomingText = '';
+    try{
+      const ai = await callClaudeJSON(system, userMsg);
+      becomingText = ai.whoIAmBecoming || '';
+    }catch(e){ console.error('Becoming paragraph failed', e); }
+
+    const report = { generatedAt: state.date, rangeStart: days[0].date, rangeEnd: days[days.length-1].date, dayCount: days.length, axesData, whoIAmBecoming: becomingText };
+    await storageSet('monthlyreport:'+state.date, JSON.stringify(report));
+    renderMonthlyReport(report);
+    status.textContent = 'تم إنشاء اللوحة ✓';
+  }catch(e){
+    console.error('Monthly report failed', e);
+    status.textContent = 'حدث خطأ أثناء إنشاء اللوحة. حاول مرة أخرى.';
+  }
+  btn.disabled = false;
+}
+
+function renderMonthlyReport(report){
+  const box = document.getElementById('monthlyReportBox');
+  if(!report){ box.innerHTML=''; return; }
+  box.innerHTML = `
+    <div class="report-box">
+      <div class="report-meta">من ${report.rangeStart} إلى ${report.rangeEnd} (${report.dayCount} يومًا) — أُنشئ في ${report.generatedAt}</div>
+      <h4>Pattern Dashboard</h4>
+      <div class="dash-grid">
+        ${report.axesData.map(a=>`
+          <div class="dash-card">
+            <div class="dn">${a.count}</div>
+            <div class="dl">${escapeHtml(a.label)}</div>
+            <div class="dt ${a.trendClass}">${a.trendLabel}</div>
+          </div>
+        `).join('')}
+      </div>
+      <h4>Who I Am Becoming</h4>
+      <div class="becoming-text">${escapeHtml(report.whoIAmBecoming)}</div>
+    </div>
+  `;
+}
+
+async function loadLatestReports(){
+  try{
+    const wKeys = await storageListKeys('weeklyreport:');
+    if(wKeys && wKeys.length){
+      const latestKey = wKeys.sort().slice(-1)[0];
+      const val = await storageGet(latestKey);
+      if(val) renderWeeklyReport(JSON.parse(val));
+    }
+  }catch(e){}
+  try{
+    const mKeys = await storageListKeys('monthlyreport:');
+    if(mKeys && mKeys.length){
+      const latestKey = mKeys.sort().slice(-1)[0];
+      const val = await storageGet(latestKey);
+      if(val) renderMonthlyReport(JSON.parse(val));
+    }
+  }catch(e){}
+}
+
+/* Execution helpers */
+function execCatCompletion(d, cat){
+  const items = (d.execution && d.execution[cat]) || [];
+  const filled = items.filter(i=>i.text && i.text.trim());
+  if(!filled.length) return 0;
+  return Math.round(filled.filter(i=>i.done).length / filled.length * 100);
+}
+function execOverallCompletion(d){
+  const cats = EXEC_CATS.map(c=>execCatCompletion(d,c));
+  return Math.round(cats.reduce((s,v)=>s+v,0)/cats.length);
+}
+
+/* The 7 axes are now derived automatically from what actually happened today —
+   no manual self-rating widgets, per the "no replacement rating system" rule.
+   They reuse the original seven names purely as radar-chart labels. */
+function computePillarValues(d){
+  const warriorPct = d.warrior ? Math.round(d.warrior.filter(Boolean).length / WARRIOR_ITEMS.length * 100) : 0;
+  const moralPct = (d.moral && d.moral.spokeTruth===true) ? 100 : (d.moral && d.moral.spokeTruth===false) ? 30 : 55;
+  const sonship = ((d.identity && d.identity.custom ? 100:0) + (d.scripture && d.scripture.reflection ? 100:0)) / 2;
+  const wisdom = ((d.battle && d.battle.decision ? 100:0) + (d.evening && d.evening.wisdom && d.evening.wisdom.text ? 100:0)) / 2;
+  const leadership = ((d.battle && d.battle.person ? 100:0) + execCatCompletion(d,"Leadership")) / 2;
+  const legacy = (execOverallCompletion(d) + ((d.evening && d.evening.legacy && d.evening.legacy.committedToMainProject) ? 100:0)) / 2;
+  const surrender = d.discipline ? ((d.discipline.prayer||0) + (d.discipline.silence||0)) / 2 : 0;
+  return [
+    Math.round(sonship),
+    warriorPct,
+    Math.round(moralPct),
+    Math.round(wisdom),
+    Math.round(leadership),
+    Math.round(legacy),
+    Math.round(surrender)
+  ];
+}
+function computeScore(d){
+  const vals = computePillarValues(d || state);
+  return Math.round(vals.reduce((s,v)=>s+v,0)/vals.length);
 }
 function renderScore(){
-  const score = computeScore();
-  document.getElementById('scoreBig').textContent = score;
-  document.getElementById('quoteInput').value = state.quote;
-  document.getElementById('tomorrowInput').value = state.tomorrowTask;
-  document.getElementById('verdictInput').value = state.verdict;
-  document.getElementById('verdictBox').textContent = state.verdict || "اكتب فقرة قصيرة، كأنها تقرير قائد إلى محارب...";
-  document.getElementById('quoteInput').oninput = e=>{state.quote=e.target.value; scheduleSave();};
-  document.getElementById('tomorrowInput').oninput = e=>{state.tomorrowTask=e.target.value; scheduleSave();};
-  document.getElementById('verdictInput').oninput = e=>{state.verdict=e.target.value; document.getElementById('verdictBox').textContent=state.verdict||"..."; scheduleSave();};
+  document.getElementById('scoreBig').textContent = computeScore();
   drawRadar();
 }
 
 function drawRadar(){
   const svg = document.getElementById('radarSvg');
-  const cx=130, cy=130, R=95, n=state.pillars.length;
+  const vals = computePillarValues(state);
+  const cx=130, cy=130, R=95, n=vals.length;
   let grid = '';
   for(let ring=1; ring<=4; ring++){
     const r = R*ring/4;
@@ -937,7 +1446,7 @@ function drawRadar(){
     const ang = -Math.PI/2 + i*2*Math.PI/n;
     const x2 = cx+R*Math.cos(ang), y2=cy+R*Math.sin(ang);
     axes += `<line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="rgba(201,162,39,0.15)" stroke-width="1"/>`;
-    const val = state.pillars[i].today/100*R;
+    const val = vals[i]/100*R;
     dataPts.push((cx+val*Math.cos(ang))+","+(cy+val*Math.sin(ang)));
     const lx = cx+(R+18)*Math.cos(ang), ly = cy+(R+18)*Math.sin(ang);
     labels += `<text x="${lx}" y="${ly}" font-size="8" fill="#cfc4a8" text-anchor="middle" font-family="Cairo">${i+1}</text>`;
@@ -963,10 +1472,7 @@ async function renderJourney(){
   }
   days.sort((a,b)=>a.date.localeCompare(b.date));
 
-  const scores = days.map(d=>{
-    const avg = d.pillars.reduce((s,p)=>s+p.today,0)/d.pillars.length;
-    return {date:d.date, score:Math.round(avg)};
-  });
+  const scores = days.map(d=>({date:d.date, score:computeScore(d)}));
 
   // streak: consecutive days ending at latest entry with an entry each day
   let streak = 0;
@@ -992,13 +1498,13 @@ async function renderJourney(){
     }
   });
 
-  // most improved / most dropped pillar (first vs last)
+  // most improved / most dropped axis (first recorded day vs last)
   let mostImproved="—", mostDropped="—";
   if(days.length>=2){
-    const first=days[0].pillars, last=days[days.length-1].pillars;
+    const first=computePillarValues(days[0]), last=computePillarValues(days[days.length-1]);
     let bestDelta=-999, worstDelta=999, bi=0, wi=0;
     PILLARS.forEach((name,i)=>{
-      const delta = (last[i]?.today||0) - (first[i]?.today||0);
+      const delta = (last[i]||0) - (first[i]||0);
       if(delta>bestDelta){bestDelta=delta;bi=i;}
       if(delta<worstDelta){worstDelta=delta;wi=i;}
     });
@@ -1061,6 +1567,11 @@ function drawJourneyChart(scores){
 }
 
 /* ============ EXPORT IMAGE ============ */
+function timelineMoment(color){
+  const hit = state.timeline.find(t=>t.color===color && (t.event.trim() || t.feeling.trim()));
+  return hit ? (hit.event.trim() || hit.feeling.trim()) : '';
+}
+
 function exportImage(){
   const canvas = document.createElement('canvas');
   const W=1080, H=1920;
@@ -1078,106 +1589,128 @@ function exportImage(){
   ctx.strokeStyle='rgba(201,162,39,0.4)'; ctx.lineWidth=1;
   ctx.strokeRect(52,52,W-104,H-104);
 
-  let y=150;
+  let y=130;
   ctx.textAlign='center';
   ctx.fillStyle='#e6c65c';
-  ctx.font='700 34px Cormorant Garamond, serif';
+  ctx.font='700 32px Cormorant Garamond, serif';
   ctx.fillText('W A R   J O U R N A L', W/2, y);
-  y+=48;
-  ctx.fillStyle='#cfc4a8'; ctx.font='22px Cairo';
-  ctx.fillText('أصير الرجل الذي خُلقت لأكونه', W/2, y);
-  y+=60;
+  y+=42;
   const dayText = document.getElementById('dayCounterDisplay').textContent;
-  ctx.fillStyle='#c9a227'; ctx.font='600 30px Cormorant Garamond, serif';
+  ctx.fillStyle='#c9a227'; ctx.font='600 26px Cormorant Garamond, serif';
   ctx.fillText(dayText, W/2, y);
-  y+=36;
-  ctx.fillStyle='#cfc4a8'; ctx.font='18px Cairo';
+  y+=32;
+  ctx.fillStyle='#cfc4a8'; ctx.font='16px Cairo';
   ctx.fillText(document.getElementById('dateDisplay').textContent, W/2, y);
 
-  y+=70;
-  ctx.strokeStyle='rgba(201,162,39,0.35)'; ctx.beginPath(); ctx.moveTo(120,y); ctx.lineTo(W-120,y); ctx.stroke();
-  y+=60;
+  y+=44;
+  ctx.strokeStyle='rgba(201,162,39,0.35)'; ctx.beginPath(); ctx.moveTo(100,y); ctx.lineTo(W-100,y); ctx.stroke();
+  y+=44;
 
   ctx.textAlign='right';
-  const rx = W-140;
-  function heading(txt){ ctx.fillStyle='#c9a227'; ctx.font='700 26px Amiri, serif'; ctx.fillText(txt, rx, y); y+=38; }
-  function wrapText(text, x, maxWidth, lineHeight, font, color){
+  const rx = W-130;
+  const maxW = W-260;
+  function heading(txt){ ctx.fillStyle='#c9a227'; ctx.font='700 22px Amiri, serif'; ctx.textAlign='right'; ctx.fillText(txt, rx, y); y+=32; }
+  function wrapText(text, lineHeight, font, color, maxLines){
     ctx.font=font; ctx.fillStyle=color; ctx.textAlign='right';
-    const words = (text||'').split(' ');
+    const words = (text||'—').split(' ');
     let line=''; const lines=[];
     words.forEach(word=>{
       const test = line + word + ' ';
-      if(ctx.measureText(test).width > maxWidth && line){ lines.push(line); line = word + ' '; }
+      if(ctx.measureText(test).width > maxW && line){ lines.push(line); line = word + ' '; }
       else line = test;
     });
     if(line) lines.push(line);
-    lines.slice(0,4).forEach(l=>{ ctx.fillText(l.trim(), x, y); y+=lineHeight; });
+    lines.slice(0, maxLines||3).forEach(l=>{ ctx.fillText(l.trim(), rx, y); y+=lineHeight; });
   }
 
-  heading('الهوية اليوم');
-  const idText = state.identity.custom || 'أنا ابن محبوب لله، سأقود نفسي قبل أن أقود الآخرين.';
-  wrapText(idText, rx, W-280, 30, '20px Cairo', '#f2ead9');
-  y+=20;
-
-  heading('أهم ثلاث انتصارات');
-  state.wins.forEach((w,i)=>{
-    if(w.task){ wrapText(`${i+1}. ${w.task}`, rx, W-280, 28, '18px Cairo', '#f2ead9'); }
-  });
-  y+=20;
-
-  heading('أهم معركة');
-  wrapText(state.battle.main || '—', rx, W-280, 28, '18px Cairo', '#f2ead9');
+  heading('Identity Declaration');
+  wrapText(FIXED_DECLS[0], 26, '16px Cairo', '#cfc4a8', 1);
+  y+=6;
+  heading('الإعلان الشخصي');
+  wrapText(state.identity.custom, 26, '17px Cairo', '#f2ead9', 3);
   y+=10;
 
-  heading('أهم انتصار / سقوط');
-  wrapText('انتصار: ' + (state.evening.wins.text || '—'), rx, W-280, 26, '16px Cairo', '#e6c65c');
-  wrapText('سقوط: ' + (state.evening.falls.text || '—'), rx, W-280, 26, '16px Cairo', '#a5453f');
+  heading('Scripture of the Day');
+  wrapText('"'+state.scripture.text+'"', 25, 'italic 16px Amiri, serif', '#e6c65c', 3);
+  ctx.font='14px Cormorant Garamond, serif'; ctx.fillStyle='#c9a227'; ctx.fillText('— '+state.scripture.ref, rx, y); y+=34;
+
+  heading("Today's Battle");
+  wrapText(state.battle.main, 25, '16px Cairo', '#f2ead9', 2);
   y+=10;
 
+  const objectives = state.wins.filter(w=>w.task && w.task.trim());
+  if(objectives.length){
+    heading('Mission Objectives');
+    objectives.forEach((w,i)=>{ wrapText(`${i+1}. ${w.task}`, 24, '15px Cairo', '#f2ead9', 1); });
+    y+=6;
+  }
+
+  heading('أهم انتصار');
+  wrapText(state.evening.wins.text, 24, '15px Cairo', '#e6c65c', 2);
+  heading('أهم سقوط');
+  wrapText(state.evening.falls.text, 24, '15px Cairo', '#a5453f', 2);
   heading('أهم درس');
-  wrapText(state.evening.wisdom.text || '—', rx, W-280, 28, '18px Cairo', '#f2ead9');
+  wrapText(state.evening.wisdom.text, 24, '15px Cairo', '#f2ead9', 2);
   y+=10;
 
-  heading('المهمة الرئيسية للغد');
-  wrapText(state.tomorrowTask || '—', rx, W-280, 28, '18px Cairo', '#f2ead9');
-  y+=30;
+  heading('لحظة الشجاعة');
+  wrapText(timelineMoment('gold'), 24, '15px Cairo', '#e6c65c', 1);
+  heading('لحظة الخوف');
+  wrapText(timelineMoment('red'), 24, '15px Cairo', '#a5453f', 1);
+  heading('لحظة الحكمة');
+  wrapText(timelineMoment('blue'), 24, '15px Cairo', '#3c6a86', 1);
+  y+=20;
 
   // score circle
   const score = computeScore();
-  const scx = W/2, scy = y+130, sr=95;
-  ctx.beginPath(); ctx.arc(scx,scy,sr,0,Math.PI*2); ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.lineWidth=10; ctx.stroke();
+  const scx = W/2, scy = y+110, sr=85;
+  ctx.beginPath(); ctx.arc(scx,scy,sr,0,Math.PI*2); ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.lineWidth=9; ctx.stroke();
   ctx.beginPath(); ctx.arc(scx,scy,sr,-Math.PI/2,-Math.PI/2+(score/100)*Math.PI*2);
-  ctx.strokeStyle='#e6c65c'; ctx.lineWidth=10; ctx.lineCap='round'; ctx.stroke();
+  ctx.strokeStyle='#e6c65c'; ctx.lineWidth=9; ctx.lineCap='round'; ctx.stroke();
   ctx.textAlign='center';
-  ctx.fillStyle='#e6c65c'; ctx.font='700 56px Cormorant Garamond, serif';
-  ctx.fillText(String(score), scx, scy+18);
-  ctx.fillStyle='#cfc4a8'; ctx.font='14px Cairo';
-  ctx.fillText('DAILY SCORE', scx, scy+50);
-  y = scy+sr+60;
+  ctx.fillStyle='#e6c65c'; ctx.font='700 50px Cormorant Garamond, serif';
+  ctx.fillText(String(score), scx, scy+16);
+  ctx.fillStyle='#cfc4a8'; ctx.font='13px Cairo';
+  ctx.fillText('DAILY SCORE', scx, scy+46);
+  y = scy+sr+50;
 
-  if(state.quote){
-    ctx.textAlign='center'; ctx.fillStyle='#e6c65c'; ctx.font='italic 22px Amiri, serif';
-    wrapCentered(ctx, `"${state.quote}"`, scx, y, W-260, 30);
-    y+=90;
-  }
+  // radar chart
+  drawRadarOnCanvas(ctx, scx, y+120, 130);
+  y += 280;
 
-  ctx.textAlign='center'; ctx.fillStyle='#6e5a1c'; ctx.font='16px Cormorant Garamond, serif';
-  ctx.fillText('"هل أصبحت اليوم أقرب إلى الرجل الذي خُلقت لأكونه؟"', W/2, H-80);
+  ctx.textAlign='center'; ctx.fillStyle='#6e5a1c'; ctx.font='15px Cormorant Garamond, serif';
+  ctx.fillText('"هل أصبحت اليوم أقرب إلى الرجل الذي خُلقت لأكونه؟"', W/2, H-70);
 
   const link = document.createElement('a');
   link.download = `war-journal-${state.date}.png`;
   link.href = canvas.toDataURL('image/png');
   link.click();
 }
-function wrapCentered(ctx, text, x, y, maxWidth, lineHeight){
-  const words = text.split(' ');
-  let line=''; let yy=y;
-  words.forEach(word=>{
-    const test = line + word + ' ';
-    if(ctx.measureText(test).width > maxWidth && line){ ctx.fillText(line.trim(), x, yy); yy+=lineHeight; line=word+' '; }
-    else line = test;
-  });
-  if(line) ctx.fillText(line.trim(), x, yy);
+
+function drawRadarOnCanvas(ctx, cx, cy, R){
+  const vals = computePillarValues(state);
+  const n = vals.length;
+  ctx.strokeStyle='rgba(201,162,39,0.25)'; ctx.lineWidth=1;
+  for(let ring=1; ring<=4; ring++){
+    const r=R*ring/4;
+    ctx.beginPath();
+    for(let i=0;i<=n;i++){
+      const ang=-Math.PI/2+(i%n)*2*Math.PI/n;
+      const x=cx+r*Math.cos(ang), y=cy+r*Math.sin(ang);
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+  }
+  ctx.beginPath();
+  for(let i=0;i<n;i++){
+    const ang=-Math.PI/2+i*2*Math.PI/n;
+    const val=vals[i]/100*R;
+    const x=cx+val*Math.cos(ang), y=cy+val*Math.sin(ang);
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  ctx.fillStyle='rgba(201,162,39,0.28)'; ctx.fill();
+  ctx.strokeStyle='#e6c65c'; ctx.lineWidth=2; ctx.stroke();
 }
 
 /* ============ INIT / DATE SWITCH ============ */
@@ -1212,6 +1745,9 @@ async function init(){
   };
   document.getElementById('printBtn').onclick = ()=>window.print();
   document.getElementById('exportBtn').onclick = exportImage;
+  document.getElementById('analyzeDayBtn').onclick = analyzeToday;
+  document.getElementById('genWeeklyBtn').onclick = generateWeeklyReport;
+  document.getElementById('genMonthlyBtn').onclick = generateMonthlyReport;
 
   try{
     await switchToDate(today);
@@ -1221,6 +1757,8 @@ async function init(){
     currentDate = today;
     renderAll();
   }
+
+  try{ await loadLatestReports(); }catch(e){ console.warn('could not load latest pattern reports', e); }
 
   if(!storageAvailable){
     const notice = document.createElement('div');
