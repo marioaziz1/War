@@ -109,6 +109,66 @@
     flex:1;
   }
 
+  .question-item .ref-text{
+    display:block;
+    font-size:0.78rem;
+    color:#888;
+    margin-top:2px;
+    font-weight:400;
+  }
+
+  /* ============ كتلة كل قيمة (سؤال رئيسي + مؤشرات) ============ */
+  .value-block{
+    margin-bottom:14px;
+  }
+
+  .indicators-block{
+    margin:8px 0 0;
+    padding-inline-start:20px;
+    border-inline-start:2px solid var(--border);
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+
+  .indicators-title{
+    font-size:0.78rem;
+    font-weight:700;
+    color:var(--gold);
+    margin-bottom:2px;
+  }
+
+  .indicator-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#ffffff;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:8px 12px;
+    transition:background .2s, border-color .2s;
+  }
+
+  .indicator-item.checked{
+    background:#fbf6e6;
+    border-color:var(--gold);
+  }
+
+  .indicator-item input[type="checkbox"]{
+    width:17px;
+    height:17px;
+    accent-color:var(--gold);
+    cursor:pointer;
+    flex-shrink:0;
+  }
+
+  .indicator-item label{
+    cursor:pointer;
+    font-size:0.85rem;
+    flex:1;
+    color:#444;
+  }
+
   /* ============ عرض النقاط ============ */
   .score-box{
     text-align:center;
@@ -217,6 +277,17 @@
     margin-bottom:20px;
   }
 
+  .subsection-title{
+    font-size:1rem;
+    font-weight:700;
+    color:var(--primary-dark);
+    margin:6px 0 10px;
+  }
+
+  .value-avg-table{
+    margin-bottom:20px;
+  }
+
   .stat-card{
     background:#fafaf8;
     border:1px solid var(--border);
@@ -307,7 +378,7 @@
 
   <!-- عرض النقاط -->
   <div class="score-box">
-    <div class="score-value"><span id="scoreValue">0</span> / 6</div>
+    <div class="score-value"><span id="scoreValue">0.00</span> / 10.5</div>
     <div class="score-label">نقاط اليوم</div>
   </div>
 
@@ -341,9 +412,13 @@
     </div>
     <div class="stat-card" style="grid-column:1 / -1;">
       <div class="stat-value" id="statFullDays">0</div>
-      <div class="stat-label">عدد الأيام الكاملة (6/6)</div>
+      <div class="stat-label">عدد الأيام الكاملة (10.5/10.5)</div>
     </div>
   </div>
+
+  <!-- تحليل متوسط كل قيمة على حدة -->
+  <h3 class="subsection-title">متوسط كل قيمة</h3>
+  <div id="valueAveragesContainer" class="value-avg-table"></div>
 
   <!-- الرسم البياني -->
   <canvas id="progressChart" height="180"></canvas>
@@ -360,16 +435,87 @@
 
 <script>
 /* =========================================================
-   قائمة الأسئلة - يمكن إضافة/حذف/تعديل أي سؤال من هنا بسهولة
+   مصفوفة القيم - كل قيمة تحتوي على:
+   - title: اسم مختصر يُستخدم في جدول تحليل المتوسطات
+   - question: السؤال الرئيسي (1 نقطة عند تحديده)
+   - reference: مرجع اختياري يظهر تحت السؤال (يمكن حذفه)
+   - indicators: 3 مؤشرات نجاح (0.25 نقطة لكل مؤشر محدد)
+   يمكن إضافة/حذف/تعديل أي قيمة أو مؤشر من هنا بسهولة
    ========================================================= */
-const QUESTIONS = [
-  "هل يضع هذا يسوع أولًا؟",
-  "هل أتحمل مسؤوليته كاملة؟",
-  "هل يعكس نزاهة وإتقانًا؟",
-  "هل أستطيع قوله بصراحة ومحبة؟",
-  "هل يخدم الناس بتواضع؟",
-  "هل يساعدني على التعلّم والنمو؟"
+const VALUES = [
+  {
+    title: "يسوع هو الأول",
+    question: "هل يضع هذا يسوع أولًا؟",
+    reference: "",
+    indicators: [
+      "قضيت وقتًا حقيقيًا في كلمة الله والصلاة اليوم.",
+      "اتخذت قرارًا بعد صلاة أو طلب مشورة الله.",
+      "حافظت على أولوياتي الروحية قبل الانشغال بالعمل أو الناس."
+    ]
+  },
+  {
+    title: "المسؤولية",
+    question: "هل أتحمل مسؤوليته كاملة؟",
+    reference: "(المرجعية: 2 تيموثاوس 2:5)",
+    indicators: [
+      "اعترفت بخطئي بسرعة عندما أخطأت.",
+      "أنجزت ما كان ضمن مسؤوليتي دون أعذار.",
+      "التزمت بالطريق الصحيح والمعايير حتى عندما كان ذلك أصعب."
+    ]
+  },
+  {
+    title: "النزاهة والإتقان",
+    question: "هل يعكس نزاهة وإتقانًا؟",
+    reference: "",
+    indicators: [
+      "راجعت عملي قبل تسليمه.",
+      "التزمت بالتفاصيل الصغيرة كما التزمت بالمهام الكبيرة.",
+      "أنهيت ما بدأته بأفضل جودة أستطيع تقديمها."
+    ]
+  },
+  {
+    title: "الصراحة في المحبة",
+    question: "هل أستطيع قوله بصراحة ومحبة؟",
+    reference: "",
+    indicators: [
+      "تكلمت بهدوء واحترام.",
+      "قلت الحقيقة بوضوح دون مبالغة أو إخفاء.",
+      "واجهت الشخص المناسب مباشرة بدلًا من الكلام عنه."
+    ]
+  },
+  {
+    title: "التواضع والخدمة",
+    question: "هل يخدم الناس بتواضع؟",
+    reference: "",
+    indicators: [
+      "استمعت للآخر حتى النهاية قبل أن أرد.",
+      "حاولت أن أفهم الشخص قبل أن أحكم عليه.",
+      "طلبت أو قبلت المساعدة عندما احتجت إليها."
+    ]
+  },
+  {
+    title: "التعلّم والنمو",
+    question: "هل يساعدني على التعلّم والنمو؟",
+    reference: "",
+    indicators: [
+      "اعترفت بعدم معرفتي عندما لم أكن أعرف.",
+      "تعلمت شيئًا جديدًا اليوم (قراءة، تدريب، خبرة، أو ملاحظة).",
+      "طبقت ما تعلمته عمليًا في موقف حقيقي."
+    ]
+  }
 ];
+
+/* =========================================================
+   ثوابت نظام النقاط
+   - السؤال الرئيسي = 1 نقطة
+   - كل مؤشر نجاح = 0.25 نقطة
+   - الحد الأقصى لكل قيمة = 1 + (3 × 0.25) = 1.75
+   - الحد الأقصى الكلي = 6 × 1.75 = 10.5
+   ========================================================= */
+const MAIN_POINTS = 1;
+const INDICATOR_POINTS = 0.25;
+const MAX_PER_VALUE = MAIN_POINTS + (3 * INDICATOR_POINTS); // 1.75
+const MAX_TOTAL = VALUES.length * MAX_PER_VALUE; // 10.5
 
 const STORAGE_KEY = "dailyValuesTracker"; // مفتاح التخزين في localStorage
 
@@ -397,7 +543,15 @@ function formatArabicDate(date = new Date()){
 
 /* =========================================================
    إدارة التخزين المحلي (localStorage)
-   شكل البيانات: { "2026-08-04": 5, "2026-08-05": 6, ... }
+   شكل البيانات الجديد:
+   {
+     "2026-08-04": { "total": 8.5, "values": [1.75, 1, 1.5, 1, 1.25, 2] },
+     "2026-08-05": { "total": 10.5, "values": [1.75, 1.75, 1.75, 1.75, 1.75, 1.75] }
+   }
+   (values هي نقاط كل قيمة من أصل 1.75 بنفس ترتيب مصفوفة VALUES)
+
+   ملاحظة توافق: النسخة السابقة كانت تخزن رقمًا بسيطًا لكل يوم
+   (مثل "2026-08-03": 5). دالة normalizeEntry تتعامل مع الحالتين.
    ========================================================= */
 
 function loadData(){
@@ -414,6 +568,24 @@ function saveData(data){
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
+// توحيد صيغة يوم واحد، مع دعم الصيغة القديمة (رقم بسيط)
+function normalizeEntry(entry){
+  if(typeof entry === "number"){
+    return { total: entry, values: null };
+  }
+  return entry;
+}
+
+// تقريب رقم إلى منزلتين عشريتين (لتفادي أخطاء الفاصلة العائمة)
+function roundScore(n){
+  return Math.round(n * 100) / 100;
+}
+
+// تنسيق رقم للعرض بمنزلتين عشريتين
+function formatScore(n){
+  return roundScore(n).toFixed(2);
+}
+
 /* =========================================================
    بناء الأسئلة في الصفحة
    ========================================================= */
@@ -421,26 +593,74 @@ const questionsContainer = document.getElementById("questionsContainer");
 
 function renderQuestions(){
   questionsContainer.innerHTML = "";
-  QUESTIONS.forEach((questionText, index) => {
+
+  VALUES.forEach((value, index) => {
+    // كتلة القيمة كاملة (سؤال رئيسي + مؤشرات النجاح)
+    const block = document.createElement("div");
+    block.className = "value-block";
+    block.id = `valueBlock${index}`;
+
+    // ---- السؤال الرئيسي ----
     const item = document.createElement("div");
     item.className = "question-item";
     item.id = `qItem${index}`;
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.id = `q${index}`;
+    checkbox.id = `main_${index}`;
     checkbox.addEventListener("change", () => {
       item.classList.toggle("checked", checkbox.checked);
       updateScore();
     });
 
     const label = document.createElement("label");
-    label.htmlFor = `q${index}`;
-    label.textContent = questionText;
+    label.htmlFor = `main_${index}`;
+    label.textContent = value.question;
+
+    if(value.reference){
+      const refSpan = document.createElement("span");
+      refSpan.className = "ref-text";
+      refSpan.textContent = value.reference;
+      label.appendChild(refSpan);
+    }
 
     item.appendChild(checkbox);
     item.appendChild(label);
-    questionsContainer.appendChild(item);
+    block.appendChild(item);
+
+    // ---- مؤشرات النجاح ----
+    const indicatorsBlock = document.createElement("div");
+    indicatorsBlock.className = "indicators-block";
+
+    const indicatorsTitle = document.createElement("div");
+    indicatorsTitle.className = "indicators-title";
+    indicatorsTitle.textContent = "مؤشرات النجاح";
+    indicatorsBlock.appendChild(indicatorsTitle);
+
+    value.indicators.forEach((indicatorText, indIndex) => {
+      const indItem = document.createElement("div");
+      indItem.className = "indicator-item";
+      indItem.id = `indItem_${index}_${indIndex}`;
+
+      const indCheckbox = document.createElement("input");
+      indCheckbox.type = "checkbox";
+      indCheckbox.id = `ind_${index}_${indIndex}`;
+      indCheckbox.addEventListener("change", () => {
+        indItem.classList.toggle("checked", indCheckbox.checked);
+        updateScore();
+      });
+
+      const indLabel = document.createElement("label");
+      indLabel.htmlFor = `ind_${index}_${indIndex}`;
+      indLabel.textContent = indicatorText;
+
+      indItem.appendChild(indCheckbox);
+      indItem.appendChild(indLabel);
+      indicatorsBlock.appendChild(indItem);
+    });
+
+    block.appendChild(indicatorsBlock);
+    questionsContainer.appendChild(block);
   });
 }
 
@@ -449,24 +669,40 @@ function renderQuestions(){
    ========================================================= */
 const scoreValueEl = document.getElementById("scoreValue");
 
-function getCurrentScore(){
+// حساب نقاط قيمة واحدة (من 0 إلى 1.75): السؤال الرئيسي + المؤشرات المحددة
+function getValueScore(valueIndex){
   let score = 0;
-  QUESTIONS.forEach((_, index) => {
-    const checkbox = document.getElementById(`q${index}`);
-    if (checkbox && checkbox.checked) score++;
+
+  const mainCheckbox = document.getElementById(`main_${valueIndex}`);
+  if(mainCheckbox && mainCheckbox.checked) score += MAIN_POINTS;
+
+  VALUES[valueIndex].indicators.forEach((_, indIndex) => {
+    const indCheckbox = document.getElementById(`ind_${valueIndex}_${indIndex}`);
+    if(indCheckbox && indCheckbox.checked) score += INDICATOR_POINTS;
   });
-  return score;
+
+  return roundScore(score);
+}
+
+// إرجاع مصفوفة نقاط كل القيم الستة (تُستخدم للحفظ ولتحليل المتوسطات)
+function getAllValueScores(){
+  return VALUES.map((_, index) => getValueScore(index));
+}
+
+// المجموع الكلي لكل القيم (من 0 إلى 10.5)
+function getCurrentScore(){
+  const total = getAllValueScores().reduce((sum, s) => sum + s, 0);
+  return roundScore(total);
 }
 
 function updateScore(){
-  scoreValueEl.textContent = getCurrentScore();
+  scoreValueEl.textContent = formatScore(getCurrentScore());
 }
 
 /* =========================================================
    تحميل تحديدات اليوم الحالي إن كانت محفوظة مسبقًا
-   (يتم استنتاج عدد الأسئلة فقط من النقاط، لذلك نعرض
-   النقاط المحفوظة كأول N أسئلة محددة تقريبًا - لكن الأصح
-   تخزين حالة كل سؤال. سنحسّن ذلك بتخزين حالة الأسئلة أيضًا)
+   نخزّن حالة السؤال الرئيسي وحالة كل مؤشر نجاح لكل قيمة،
+   حتى لا تُفقد التفاصيل عند إعادة فتح الصفحة في نفس اليوم
    ========================================================= */
 
 // مفتاح إضافي لتخزين حالة الأسئلة التفصيلية لليوم الحالي فقط
@@ -479,34 +715,58 @@ function loadTodayCheckboxState(){
     const parsed = JSON.parse(raw);
     // تأكد أن الحالة المحفوظة تخص اليوم الحالي فقط
     if(parsed.date !== getTodayKey()) return null;
-    return parsed.checks;
+    return parsed;
   }catch(e){
     return null;
   }
 }
 
 function saveTodayCheckboxState(){
-  const checks = QUESTIONS.map((_, index) => {
-    const checkbox = document.getElementById(`q${index}`);
+  const main = VALUES.map((_, index) => {
+    const checkbox = document.getElementById(`main_${index}`);
     return checkbox ? checkbox.checked : false;
   });
+
+  const indicators = VALUES.map((value, index) => {
+    return value.indicators.map((_, indIndex) => {
+      const indCheckbox = document.getElementById(`ind_${index}_${indIndex}`);
+      return indCheckbox ? indCheckbox.checked : false;
+    });
+  });
+
   localStorage.setItem(TODAY_STATE_KEY, JSON.stringify({
     date: getTodayKey(),
-    checks
+    main,
+    indicators
   }));
 }
 
 function applyTodayCheckboxState(){
-  const savedChecks = loadTodayCheckboxState();
-  if(!savedChecks) return;
-  savedChecks.forEach((isChecked, index) => {
-    const checkbox = document.getElementById(`q${index}`);
+  const saved = loadTodayCheckboxState();
+  if(!saved) return;
+
+  // تطبيق حالة الأسئلة الرئيسية
+  saved.main.forEach((isChecked, index) => {
+    const checkbox = document.getElementById(`main_${index}`);
     const item = document.getElementById(`qItem${index}`);
     if(checkbox){
       checkbox.checked = isChecked;
       item.classList.toggle("checked", isChecked);
     }
   });
+
+  // تطبيق حالة مؤشرات النجاح
+  saved.indicators.forEach((indArr, index) => {
+    indArr.forEach((isChecked, indIndex) => {
+      const indCheckbox = document.getElementById(`ind_${index}_${indIndex}`);
+      const indItem = document.getElementById(`indItem_${index}_${indIndex}`);
+      if(indCheckbox){
+        indCheckbox.checked = isChecked;
+        indItem.classList.toggle("checked", isChecked);
+      }
+    });
+  });
+
   updateScore();
 }
 
@@ -531,9 +791,11 @@ function showToast(message){
 document.getElementById("saveBtn").addEventListener("click", () => {
   const data = loadData();
   const todayKey = getTodayKey();
-  const score = getCurrentScore();
+  const values = getAllValueScores();          // نقاط كل قيمة على حدة (من 1.75)
+  const total = roundScore(values.reduce((sum, s) => sum + s, 0));
 
-  data[todayKey] = score; // إنشاء أو تحديث القيمة الخاصة باليوم
+  // إنشاء أو تحديث سجل اليوم (يتم التحديث وليس إنشاء نسخة جديدة)
+  data[todayKey] = { total, values };
   saveData(data);
   saveTodayCheckboxState();
 
@@ -548,16 +810,28 @@ document.getElementById("saveBtn").addEventListener("click", () => {
    زر إعادة تعيين اليوم: يمسح التحديدات الحالية فقط (بدون حفظ)
    ========================================================= */
 document.getElementById("resetTodayBtn").addEventListener("click", () => {
-  QUESTIONS.forEach((_, index) => {
-    const checkbox = document.getElementById(`q${index}`);
-    const item = document.getElementById(`qItem${index}`);
-    checkbox.checked = false;
-    item.classList.remove("checked");
-  });
+  resetAllCheckboxes();
   updateScore();
   localStorage.removeItem(TODAY_STATE_KEY);
   showToast("تمت إعادة تعيين تحديدات اليوم.");
 });
+
+// دالة مشتركة لإلغاء تحديد كل الأسئلة الرئيسية ومؤشرات النجاح في الواجهة
+function resetAllCheckboxes(){
+  VALUES.forEach((value, index) => {
+    const mainCheckbox = document.getElementById(`main_${index}`);
+    const item = document.getElementById(`qItem${index}`);
+    mainCheckbox.checked = false;
+    item.classList.remove("checked");
+
+    value.indicators.forEach((_, indIndex) => {
+      const indCheckbox = document.getElementById(`ind_${index}_${indIndex}`);
+      const indItem = document.getElementById(`indItem_${index}_${indIndex}`);
+      indCheckbox.checked = false;
+      indItem.classList.remove("checked");
+    });
+  });
+}
 
 /* =========================================================
    زر مسح جميع البيانات: بعد تأكيد المستخدم
@@ -569,13 +843,8 @@ document.getElementById("clearAllBtn").addEventListener("click", () => {
   localStorage.removeItem(STORAGE_KEY);
   localStorage.removeItem(TODAY_STATE_KEY);
 
-  // إعادة تعيين الأسئلة في الواجهة
-  QUESTIONS.forEach((_, index) => {
-    const checkbox = document.getElementById(`q${index}`);
-    const item = document.getElementById(`qItem${index}`);
-    checkbox.checked = false;
-    item.classList.remove("checked");
-  });
+  // إعادة تعيين الأسئلة والمؤشرات في الواجهة
+  resetAllCheckboxes();
   updateScore();
 
   const emptyData = {};
@@ -590,18 +859,64 @@ document.getElementById("clearAllBtn").addEventListener("click", () => {
    حساب وعرض إحصائيات التقدم
    ========================================================= */
 function renderStats(data){
-  const entries = Object.entries(data); // [ [date, score], ... ]
+  // توحيد كل الإدخالات (تدعم الصيغة القديمة والجديدة)
+  const entries = Object.entries(data).map(([dateKey, entry]) => [dateKey, normalizeEntry(entry)]);
+
   const totalDays = entries.length;
-  const totalPoints = entries.reduce((sum, [, score]) => sum + score, 0);
-  const avg = totalDays > 0 ? (totalPoints / totalDays).toFixed(1) : "0";
-  const best = totalDays > 0 ? Math.max(...entries.map(([, score]) => score)) : 0;
-  const fullDays = entries.filter(([, score]) => score === 6).length;
+  const totalPoints = entries.reduce((sum, [, e]) => sum + e.total, 0);
+  const avg = totalDays > 0 ? totalPoints / totalDays : 0;
+  const best = totalDays > 0 ? Math.max(...entries.map(([, e]) => e.total)) : 0;
+  const fullDays = entries.filter(([, e]) => Math.abs(e.total - MAX_TOTAL) < 0.001).length;
 
   document.getElementById("statDays").textContent = totalDays;
-  document.getElementById("statTotalPoints").textContent = totalPoints;
-  document.getElementById("statAvg").textContent = avg;
-  document.getElementById("statBest").textContent = best;
+  document.getElementById("statTotalPoints").textContent = formatScore(totalPoints);
+  document.getElementById("statAvg").textContent = formatScore(avg);
+  document.getElementById("statBest").textContent = formatScore(best);
   document.getElementById("statFullDays").textContent = fullDays;
+
+  renderValueAverages(entries);
+}
+
+// عرض جدول متوسط كل قيمة على حدة عبر كل الأيام المسجلة
+function renderValueAverages(entries){
+  const container = document.getElementById("valueAveragesContainer");
+
+  // نأخذ فقط الأيام التي تحتوي على تفصيل نقاط القيم (values غير null)
+  const detailedEntries = entries.filter(([, e]) => Array.isArray(e.values));
+
+  if(detailedEntries.length === 0){
+    container.innerHTML = `<div class="empty-state">لا توجد بيانات كافية لعرض تحليل القيم بعد.</div>`;
+    return;
+  }
+
+  // حساب متوسط كل قيمة (بنفس ترتيب مصفوفة VALUES)
+  const averages = VALUES.map((_, valueIndex) => {
+    const sum = detailedEntries.reduce((acc, [, e]) => acc + (e.values[valueIndex] || 0), 0);
+    return sum / detailedEntries.length;
+  });
+
+  let html = `
+    <table>
+      <thead>
+        <tr>
+          <th>القيمة</th>
+          <th>المتوسط</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  VALUES.forEach((value, index) => {
+    html += `
+      <tr>
+        <td>${value.title}</td>
+        <td>${formatScore(averages[index])} / ${MAX_PER_VALUE.toFixed(2)}</td>
+      </tr>
+    `;
+  });
+
+  html += `</tbody></table>`;
+  container.innerHTML = html;
 }
 
 /* =========================================================
@@ -609,7 +924,9 @@ function renderStats(data){
    ========================================================= */
 function renderTable(data){
   const container = document.getElementById("tableContainer");
-  const entries = Object.entries(data).sort((a, b) => b[0].localeCompare(a[0]));
+  const entries = Object.entries(data)
+    .map(([dateKey, entry]) => [dateKey, normalizeEntry(entry)])
+    .sort((a, b) => b[0].localeCompare(a[0]));
 
   if(entries.length === 0){
     container.innerHTML = `<div class="empty-state">لا توجد أيام مسجلة بعد.</div>`;
@@ -627,11 +944,11 @@ function renderTable(data){
       <tbody>
   `;
 
-  entries.forEach(([dateKey, score]) => {
+  entries.forEach(([dateKey, e]) => {
     html += `
       <tr>
         <td>${dateKey}</td>
-        <td>${score} / 6</td>
+        <td>${formatScore(e.total)} / 10.5</td>
       </tr>
     `;
   });
@@ -658,7 +975,9 @@ function drawChart(data){
   // تفريغ الرسم
   ctx.clearRect(0, 0, displayWidth, displayHeight);
 
-  const entries = Object.entries(data).sort((a, b) => a[0].localeCompare(b[0]));
+  const entries = Object.entries(data)
+    .map(([dateKey, entry]) => [dateKey, normalizeEntry(entry)])
+    .sort((a, b) => a[0].localeCompare(b[0]));
 
   if(entries.length === 0){
     ctx.fillStyle = "#999";
@@ -671,36 +990,39 @@ function drawChart(data){
   const padding = 30;
   const chartWidth = displayWidth - padding * 2;
   const chartHeight = displayHeight - padding * 2;
-  const maxScore = 6;
+  const maxScore = MAX_TOTAL; // 10.5
+  const gridSteps = 6; // نفس عدد القيم، لتكون كل خط بمقدار 1.75
 
   // عدد الأعمدة المعروضة (آخر 14 يومًا كحد أقصى لوضوح الرسم)
   const visibleEntries = entries.slice(-14);
   const barSpacing = chartWidth / visibleEntries.length;
   const barWidth = Math.min(barSpacing * 0.6, 30);
 
-  // رسم خطوط الشبكة الأفقية (0 إلى 6)
+  // رسم خطوط الشبكة الأفقية (0 إلى 10.5 على 6 مستويات)
   ctx.strokeStyle = "#E5E5E0";
   ctx.fillStyle = "#888";
   ctx.font = "10px Cairo, sans-serif";
   ctx.textAlign = "right";
 
-  for(let i = 0; i <= maxScore; i++){
-    const y = padding + chartHeight - (i / maxScore) * chartHeight;
+  for(let i = 0; i <= gridSteps; i++){
+    const value = (i / gridSteps) * maxScore;
+    const y = padding + chartHeight - (value / maxScore) * chartHeight;
     ctx.beginPath();
     ctx.moveTo(padding, y);
     ctx.lineTo(displayWidth - padding, y);
     ctx.stroke();
-    ctx.fillText(i, padding - 6, y + 3);
+    ctx.fillText(value.toFixed(1), padding - 6, y + 3);
   }
 
   // رسم الأعمدة
-  visibleEntries.forEach(([dateKey, score], index) => {
+  visibleEntries.forEach(([dateKey, e], index) => {
+    const score = e.total;
     const barHeight = (score / maxScore) * chartHeight;
     const x = padding + index * barSpacing + (barSpacing - barWidth) / 2;
     const y = padding + chartHeight - barHeight;
 
-    // لون العمود: أخضر أساسي، وذهبي لليوم الكامل (6/6)
-    ctx.fillStyle = score === 6 ? "#C9A227" : "#1F6F5F";
+    // لون العمود: أخضر أساسي، وذهبي لليوم الكامل (10.5/10.5)
+    ctx.fillStyle = Math.abs(score - maxScore) < 0.001 ? "#C9A227" : "#1F6F5F";
     ctx.fillRect(x, y, barWidth, barHeight);
 
     // تسمية اليوم/الشهر أسفل كل عمود
