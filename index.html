@@ -82,6 +82,7 @@
   .question-item{
     display:flex;
     align-items:center;
+    flex-wrap:wrap;
     gap:12px;
     background:#fafaf8;
     border:1px solid var(--border);
@@ -117,6 +118,65 @@
     font-weight:400;
   }
 
+  /* ============ خانة "لم يحدث اليوم" (تُستخدم مع كل سؤال ومؤشر) ============ */
+  .na-toggle{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    flex-shrink:0;
+    padding-inline-start:10px;
+    margin-inline-start:6px;
+    border-inline-start:1px solid var(--border);
+  }
+
+  .na-toggle input[type="checkbox"]{
+    width:15px;
+    height:15px;
+    accent-color:#9CA3AF;
+    cursor:pointer;
+    flex-shrink:0;
+  }
+
+  .na-toggle label{
+    cursor:pointer;
+    font-size:0.72rem;
+    color:#888;
+    white-space:nowrap;
+  }
+
+  /* نسخة أصغر من خانة "لم يحدث" تُستخدم داخل صفوف المؤشرات الأصغر حجمًا */
+  .indicator-item .na-toggle{
+    padding-inline-start:8px;
+    margin-inline-start:4px;
+  }
+
+  .indicator-item .na-toggle input[type="checkbox"]{
+    width:13px;
+    height:13px;
+  }
+
+  .indicator-item .na-toggle label{
+    font-size:0.66rem;
+  }
+
+  /* عند تحديد "لم يحدث اليوم" على سؤال أو مؤشر بعينه، يُعطَّل ويُخفَّت
+     ذلك السؤال/المؤشر فقط، وتبقى خانة التبديل نفسها ظاهرة وقابلة للنقر */
+  .question-item.not-applicable > input[type="checkbox"],
+  .question-item.not-applicable > label{
+    opacity:0.4;
+    pointer-events:none;
+  }
+
+  .indicator-item.not-applicable > input[type="checkbox"],
+  .indicator-item.not-applicable > label{
+    opacity:0.4;
+    pointer-events:none;
+  }
+
+  .indicator-item.not-applicable{
+    background:#f2f2f0;
+  }
+
   /* ============ كتلة كل قيمة (سؤال رئيسي + مؤشرات) ============ */
   .value-block{
     margin-bottom:14px;
@@ -141,6 +201,7 @@
   .indicator-item{
     display:flex;
     align-items:center;
+    flex-wrap:wrap;
     gap:10px;
     background:#ffffff;
     border:1px solid var(--border);
@@ -358,6 +419,17 @@
     header h1{ font-size:1.4rem; }
     .score-box .score-value{ font-size:2rem; }
     .stats-grid{ grid-template-columns:1fr; }
+
+    .na-toggle{
+      flex-basis:100%;
+      padding-inline-start:0;
+      margin-inline-start:0;
+      border-inline-start:none;
+      border-top:1px solid var(--border);
+      padding-top:8px;
+      margin-top:4px;
+      justify-content:flex-start;
+    }
   }
 </style>
 </head>
@@ -378,7 +450,7 @@
 
   <!-- عرض النقاط -->
   <div class="score-box">
-    <div class="score-value"><span id="scoreValue">0.00</span> / 10.5</div>
+    <div class="score-value"><span id="scoreValue">0.00</span> / <span id="scoreMax">10.5</span></div>
     <div class="score-label">نقاط اليوم</div>
   </div>
 
@@ -412,7 +484,7 @@
     </div>
     <div class="stat-card" style="grid-column:1 / -1;">
       <div class="stat-value" id="statFullDays">0</div>
-      <div class="stat-label">عدد الأيام الكاملة (10.5/10.5)</div>
+      <div class="stat-label">عدد الأيام الكاملة (كل ما ينطبق)</div>
     </div>
   </div>
 
@@ -545,13 +617,24 @@ function formatArabicDate(date = new Date()){
    إدارة التخزين المحلي (localStorage)
    شكل البيانات الجديد:
    {
-     "2026-08-04": { "total": 8.5, "values": [1.75, 1, 1.5, 1, 1.25, 2] },
-     "2026-08-05": { "total": 10.5, "values": [1.75, 1.75, 1.75, 1.75, 1.75, 1.75] }
+     "2026-08-04": {
+       "total": 7,      // مجموع نقاط اليوم (بعد استبعاد ما لم يحدث)
+       "max": 8.75,      // الحد الأقصى الممكن اليوم (بعد استبعاد ما لم يحدث)
+       "values": [
+         { "score": 1.75, "max": 1.75 },  // قيمة مطبَّقة بالكامل
+         { "score": 0.5,  "max": 1.25 },  // قيمة استُبعد منها عنصر واحد (مؤشر أو السؤال الرئيسي)
+         { "score": 0,    "max": 0    },  // قيمة استُبعدت بالكامل (كل عناصرها "لم يحدث")
+         ...
+       ]
+     }
    }
-   (values هي نقاط كل قيمة من أصل 1.75 بنفس ترتيب مصفوفة VALUES)
+   (كل عنصر في values يمثل قيمة واحدة بنفس ترتيب مصفوفة VALUES:
+    score = النقاط المحققة، max = الحد الأقصى الممكن لها بعد استبعاد
+    أي سؤال رئيسي أو مؤشر حُدِّد كـ"لم يحدث اليوم")
 
-   ملاحظة توافق: النسخة السابقة كانت تخزن رقمًا بسيطًا لكل يوم
-   (مثل "2026-08-03": 5). دالة normalizeEntry تتعامل مع الحالتين.
+   ملاحظة توافق: النسخ السابقة كانت تخزن رقمًا بسيطًا لكل يوم،
+   أو values كأرقام/null على مستوى القيمة كاملة. دالة normalizeEntry
+   تحوّل كل الصيغ القديمة تلقائيًا إلى الصيغة الحالية.
    ========================================================= */
 
 function loadData(){
@@ -568,12 +651,34 @@ function saveData(data){
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
-// توحيد صيغة يوم واحد، مع دعم الصيغة القديمة (رقم بسيط)
+// توحيد صيغة يوم واحد، مع دعم الصيغ القديمة (رقم بسيط، أو كائن بدون max/na)
 function normalizeEntry(entry){
+  // الصيغة الأقدم: رقم بسيط فقط (قبل إضافة المؤشرات)
   if(typeof entry === "number"){
-    return { total: entry, values: null };
+    return { total: entry, max: MAX_TOTAL, values: null };
   }
-  return entry;
+
+  const total = entry.total;
+  const max = (typeof entry.max === "number") ? entry.max : MAX_TOTAL;
+
+  // توحيد مصفوفة "values" مهما كانت صيغتها القديمة:
+  // - الصيغة الحالية: [{score, max}, ...] لكل قيمة
+  // - صيغة أقدم: [رقم أو null, ...] (استبعاد على مستوى القيمة كاملة)
+  // - لا توجد بيانات تفصيلية: null
+  let values = null;
+  if(Array.isArray(entry.values)){
+    values = entry.values.map(v => {
+      if(v && typeof v === "object"){
+        return { score: v.score, max: v.max }; // الصيغة الحالية
+      }
+      if(v === null){
+        return { score: 0, max: 0 }; // كانت مستبعدة بالكامل في نسخة سابقة
+      }
+      return { score: v, max: MAX_PER_VALUE }; // رقم بسيط بافتراض أنها كانت مطبَّقة بالكامل
+    });
+  }
+
+  return { total, max, values };
 }
 
 // تقريب رقم إلى منزلتين عشريتين (لتفادي أخطاء الفاصلة العائمة)
@@ -593,6 +698,37 @@ const questionsContainer = document.getElementById("questionsContainer");
 
 function renderQuestions(){
   questionsContainer.innerHTML = "";
+
+  // دالة مساعدة لإنشاء خانة "لم يحدث اليوم" وربطها بأي سؤال أو مؤشر
+  function createNAToggle(naId, targetCheckbox, targetItemEl){
+    const naWrapper = document.createElement("div");
+    naWrapper.className = "na-toggle";
+
+    const naCheckbox = document.createElement("input");
+    naCheckbox.type = "checkbox";
+    naCheckbox.id = naId;
+
+    const naLabel = document.createElement("label");
+    naLabel.htmlFor = naId;
+    naLabel.textContent = "لم يحدث اليوم";
+
+    naWrapper.appendChild(naCheckbox);
+    naWrapper.appendChild(naLabel);
+
+    // عند التحديد: تعطيل وإلغاء تحديد السؤال/المؤشر المرتبط، وتحديث النقاط فورًا
+    naCheckbox.addEventListener("change", () => {
+      const isNA = naCheckbox.checked;
+      targetItemEl.classList.toggle("not-applicable", isNA);
+      targetCheckbox.disabled = isNA;
+      if(isNA){
+        targetCheckbox.checked = false;
+        targetItemEl.classList.remove("checked");
+      }
+      updateScore();
+    });
+
+    return naWrapper;
+  }
 
   VALUES.forEach((value, index) => {
     // كتلة القيمة كاملة (سؤال رئيسي + مؤشرات النجاح)
@@ -626,6 +762,8 @@ function renderQuestions(){
 
     item.appendChild(checkbox);
     item.appendChild(label);
+    item.appendChild(createNAToggle(`na_main_${index}`, checkbox, item));
+
     block.appendChild(item);
 
     // ---- مؤشرات النجاح ----
@@ -656,6 +794,8 @@ function renderQuestions(){
 
       indItem.appendChild(indCheckbox);
       indItem.appendChild(indLabel);
+      indItem.appendChild(createNAToggle(`na_ind_${index}_${indIndex}`, indCheckbox, indItem));
+
       indicatorsBlock.appendChild(indItem);
     });
 
@@ -668,35 +808,55 @@ function renderQuestions(){
    احتساب النقاط وعرضها فورًا
    ========================================================= */
 const scoreValueEl = document.getElementById("scoreValue");
+const scoreMaxEl = document.getElementById("scoreMax");
 
-// حساب نقاط قيمة واحدة (من 0 إلى 1.75): السؤال الرئيسي + المؤشرات المحددة
+/* حساب نقاط ومقام قيمة واحدة (score من 0 إلى 1.75، max من 0 إلى 1.75)
+   بحيث يُستبعد كل سؤال رئيسي أو مؤشر نجاح على حدة إذا حُدِّد كـ"لم يحدث اليوم" */
 function getValueScore(valueIndex){
   let score = 0;
+  let max = 0;
 
+  // السؤال الرئيسي
+  const mainNA = document.getElementById(`na_main_${valueIndex}`);
   const mainCheckbox = document.getElementById(`main_${valueIndex}`);
-  if(mainCheckbox && mainCheckbox.checked) score += MAIN_POINTS;
+  if(!(mainNA && mainNA.checked)){
+    max += MAIN_POINTS;
+    if(mainCheckbox && mainCheckbox.checked) score += MAIN_POINTS;
+  }
 
+  // مؤشرات النجاح
   VALUES[valueIndex].indicators.forEach((_, indIndex) => {
+    const indNA = document.getElementById(`na_ind_${valueIndex}_${indIndex}`);
     const indCheckbox = document.getElementById(`ind_${valueIndex}_${indIndex}`);
-    if(indCheckbox && indCheckbox.checked) score += INDICATOR_POINTS;
+    if(!(indNA && indNA.checked)){
+      max += INDICATOR_POINTS;
+      if(indCheckbox && indCheckbox.checked) score += INDICATOR_POINTS;
+    }
   });
 
-  return roundScore(score);
+  return { score: roundScore(score), max: roundScore(max) };
 }
 
-// إرجاع مصفوفة نقاط كل القيم الستة (تُستخدم للحفظ ولتحليل المتوسطات)
+// إرجاع مصفوفة { score, max } لكل القيم الستة
 function getAllValueScores(){
   return VALUES.map((_, index) => getValueScore(index));
 }
 
-// المجموع الكلي لكل القيم (من 0 إلى 10.5)
+// المجموع الكلي لنقاط اليوم (بعد استبعاد كل عنصر حُدِّد كـ"لم يحدث")
 function getCurrentScore(){
-  const total = getAllValueScores().reduce((sum, s) => sum + s, 0);
+  const total = getAllValueScores().reduce((sum, v) => sum + v.score, 0);
+  return roundScore(total);
+}
+
+// الحد الأقصى الممكن اليوم = مجموع مقامات كل القيم بعد الاستبعاد
+function getCurrentMax(){
+  const total = getAllValueScores().reduce((sum, v) => sum + v.max, 0);
   return roundScore(total);
 }
 
 function updateScore(){
   scoreValueEl.textContent = formatScore(getCurrentScore());
+  scoreMaxEl.textContent = formatScore(getCurrentMax());
 }
 
 /* =========================================================
@@ -734,10 +894,26 @@ function saveTodayCheckboxState(){
     });
   });
 
+  // حالة "لم يحدث اليوم" للسؤال الرئيسي لكل قيمة
+  const mainNA = VALUES.map((_, index) => {
+    const naCheckbox = document.getElementById(`na_main_${index}`);
+    return naCheckbox ? naCheckbox.checked : false;
+  });
+
+  // حالة "لم يحدث اليوم" لكل مؤشر نجاح على حدة
+  const indicatorsNA = VALUES.map((value, index) => {
+    return value.indicators.map((_, indIndex) => {
+      const naCheckbox = document.getElementById(`na_ind_${index}_${indIndex}`);
+      return naCheckbox ? naCheckbox.checked : false;
+    });
+  });
+
   localStorage.setItem(TODAY_STATE_KEY, JSON.stringify({
     date: getTodayKey(),
     main,
-    indicators
+    indicators,
+    mainNA,
+    indicatorsNA
   }));
 }
 
@@ -745,22 +921,45 @@ function applyTodayCheckboxState(){
   const saved = loadTodayCheckboxState();
   if(!saved) return;
 
-  // تطبيق حالة الأسئلة الرئيسية
+  // تطبيق خانات "لم يحدث اليوم" أولًا (تعطّل السؤال/المؤشر المرتبط بها)
+  if(Array.isArray(saved.mainNA)){
+    saved.mainNA.forEach((isNA, index) => {
+      const naCheckbox = document.getElementById(`na_main_${index}`);
+      if(naCheckbox && isNA){
+        naCheckbox.checked = true;
+        // إطلاق حدث change يدويًا لتطبيق التعطيل البصري والمنطقي
+        naCheckbox.dispatchEvent(new Event("change"));
+      }
+    });
+  }
+  if(Array.isArray(saved.indicatorsNA)){
+    saved.indicatorsNA.forEach((indArr, index) => {
+      indArr.forEach((isNA, indIndex) => {
+        const naCheckbox = document.getElementById(`na_ind_${index}_${indIndex}`);
+        if(naCheckbox && isNA){
+          naCheckbox.checked = true;
+          naCheckbox.dispatchEvent(new Event("change"));
+        }
+      });
+    });
+  }
+
+  // تطبيق حالة الأسئلة الرئيسية (فقط إن لم تكن معطَّلة بسبب "لم يحدث اليوم")
   saved.main.forEach((isChecked, index) => {
     const checkbox = document.getElementById(`main_${index}`);
     const item = document.getElementById(`qItem${index}`);
-    if(checkbox){
+    if(checkbox && !checkbox.disabled){
       checkbox.checked = isChecked;
       item.classList.toggle("checked", isChecked);
     }
   });
 
-  // تطبيق حالة مؤشرات النجاح
+  // تطبيق حالة مؤشرات النجاح (فقط إن لم تكن معطَّلة)
   saved.indicators.forEach((indArr, index) => {
     indArr.forEach((isChecked, indIndex) => {
       const indCheckbox = document.getElementById(`ind_${index}_${indIndex}`);
       const indItem = document.getElementById(`indItem_${index}_${indIndex}`);
-      if(indCheckbox){
+      if(indCheckbox && !indCheckbox.disabled){
         indCheckbox.checked = isChecked;
         indItem.classList.toggle("checked", isChecked);
       }
@@ -791,11 +990,13 @@ function showToast(message){
 document.getElementById("saveBtn").addEventListener("click", () => {
   const data = loadData();
   const todayKey = getTodayKey();
-  const values = getAllValueScores();          // نقاط كل قيمة على حدة (من 1.75)
-  const total = roundScore(values.reduce((sum, s) => sum + s, 0));
+  const values = getAllValueScores(); // مصفوفة { score, max } لكل قيمة
+
+  const total = roundScore(values.reduce((sum, v) => sum + v.score, 0));
+  const max = roundScore(values.reduce((sum, v) => sum + v.max, 0));
 
   // إنشاء أو تحديث سجل اليوم (يتم التحديث وليس إنشاء نسخة جديدة)
-  data[todayKey] = { total, values };
+  data[todayKey] = { total, max, values };
   saveData(data);
   saveTodayCheckboxState();
 
@@ -816,17 +1017,27 @@ document.getElementById("resetTodayBtn").addEventListener("click", () => {
   showToast("تمت إعادة تعيين تحديدات اليوم.");
 });
 
-// دالة مشتركة لإلغاء تحديد كل الأسئلة الرئيسية ومؤشرات النجاح في الواجهة
+// دالة مشتركة لإلغاء تحديد كل الأسئلة الرئيسية ومؤشرات النجاح وخانات "لم يحدث" في الواجهة
 function resetAllCheckboxes(){
   VALUES.forEach((value, index) => {
     const mainCheckbox = document.getElementById(`main_${index}`);
     const item = document.getElementById(`qItem${index}`);
+    const mainNACheckbox = document.getElementById(`na_main_${index}`);
+
+    mainNACheckbox.checked = false;
+    item.classList.remove("not-applicable");
+    mainCheckbox.disabled = false;
     mainCheckbox.checked = false;
     item.classList.remove("checked");
 
     value.indicators.forEach((_, indIndex) => {
       const indCheckbox = document.getElementById(`ind_${index}_${indIndex}`);
       const indItem = document.getElementById(`indItem_${index}_${indIndex}`);
+      const indNACheckbox = document.getElementById(`na_ind_${index}_${indIndex}`);
+
+      indNACheckbox.checked = false;
+      indItem.classList.remove("not-applicable");
+      indCheckbox.disabled = false;
       indCheckbox.checked = false;
       indItem.classList.remove("checked");
     });
@@ -866,7 +1077,8 @@ function renderStats(data){
   const totalPoints = entries.reduce((sum, [, e]) => sum + e.total, 0);
   const avg = totalDays > 0 ? totalPoints / totalDays : 0;
   const best = totalDays > 0 ? Math.max(...entries.map(([, e]) => e.total)) : 0;
-  const fullDays = entries.filter(([, e]) => Math.abs(e.total - MAX_TOTAL) < 0.001).length;
+  // يوم "كامل" = تحقّقت فيه كل القيم المطبَّقة بحدها الأقصى (باستثناء يوم استُبعدت فيه كل القيم)
+  const fullDays = entries.filter(([, e]) => e.max > 0 && Math.abs(e.total - e.max) < 0.001).length;
 
   document.getElementById("statDays").textContent = totalDays;
   document.getElementById("statTotalPoints").textContent = formatScore(totalPoints);
@@ -889,10 +1101,23 @@ function renderValueAverages(entries){
     return;
   }
 
-  // حساب متوسط كل قيمة (بنفس ترتيب مصفوفة VALUES)
+  // حساب متوسط كل قيمة (بنفس ترتيب مصفوفة VALUES).
+  // لكل يوم نحسب نسبة (score/max) الخاصة بهذه القيمة، ثم نأخذ متوسط
+  // هذه النسب عبر الأيام التي كان فيها مقام القيمة أكبر من صفر
+  // (أي لم تُستبعد كل أجزائها في ذلك اليوم)، ثم نعرضها على مقياس 1.75.
   const averages = VALUES.map((_, valueIndex) => {
-    const sum = detailedEntries.reduce((acc, [, e]) => acc + (e.values[valueIndex] || 0), 0);
-    return sum / detailedEntries.length;
+    const applicableEntries = detailedEntries.filter(([, e]) => {
+      const v = e.values[valueIndex];
+      return v && v.max > 0;
+    });
+    if(applicableEntries.length === 0) return null;
+
+    const sumRatios = applicableEntries.reduce((acc, [, e]) => {
+      const v = e.values[valueIndex];
+      return acc + (v.score / v.max);
+    }, 0);
+    const avgRatio = sumRatios / applicableEntries.length;
+    return avgRatio * MAX_PER_VALUE;
   });
 
   let html = `
@@ -907,10 +1132,13 @@ function renderValueAverages(entries){
   `;
 
   VALUES.forEach((value, index) => {
+    const avgDisplay = averages[index] === null
+      ? "لا توجد بيانات"
+      : `${formatScore(averages[index])} / ${MAX_PER_VALUE.toFixed(2)}`;
     html += `
       <tr>
         <td>${value.title}</td>
-        <td>${formatScore(averages[index])} / ${MAX_PER_VALUE.toFixed(2)}</td>
+        <td>${avgDisplay}</td>
       </tr>
     `;
   });
@@ -948,7 +1176,7 @@ function renderTable(data){
     html += `
       <tr>
         <td>${dateKey}</td>
-        <td>${formatScore(e.total)} / 10.5</td>
+        <td>${formatScore(e.total)} / ${formatScore(e.max)}</td>
       </tr>
     `;
   });
@@ -1021,8 +1249,8 @@ function drawChart(data){
     const x = padding + index * barSpacing + (barSpacing - barWidth) / 2;
     const y = padding + chartHeight - barHeight;
 
-    // لون العمود: أخضر أساسي، وذهبي لليوم الكامل (10.5/10.5)
-    ctx.fillStyle = Math.abs(score - maxScore) < 0.001 ? "#C9A227" : "#1F6F5F";
+    // لون العمود: أخضر أساسي، وذهبي لليوم الذي تحقّق فيه أقصى نقاط ممكنة له
+    ctx.fillStyle = (e.max > 0 && Math.abs(score - e.max) < 0.001) ? "#C9A227" : "#1F6F5F";
     ctx.fillRect(x, y, barWidth, barHeight);
 
     // تسمية اليوم/الشهر أسفل كل عمود
@@ -1048,6 +1276,9 @@ function init(){
 
   // تحميل تحديدات اليوم إن وجدت
   applyTodayCheckboxState();
+
+  // تحديث عرض النقاط والمقام (يضمن صحة العرض حتى لو لم توجد بيانات محفوظة)
+  updateScore();
 
   // تحميل البيانات المحفوظة وعرض الإحصائيات والجدول والرسم
   const data = loadData();
